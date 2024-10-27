@@ -44,7 +44,10 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
 };
 
 const schema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .email({ message: "Invalid email address" })
 });
 
 type NewsletterFormData = z.infer<typeof schema>;
@@ -54,38 +57,92 @@ interface NewsletterSignupProps {
 }
 
 const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ onSubmit }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  
   const { register, handleSubmit, formState: { errors }, reset } = useForm<NewsletterFormData>({
     resolver: zodResolver(schema),
   });
 
-  const onSubmitForm = (data: NewsletterFormData) => {
-    if (onSubmit) {
-      onSubmit(data.email);
+  const onSubmitForm = async (data: NewsletterFormData) => {
+    setIsSubmitting(true);
+    try {
+      if (onSubmit) {
+        await onSubmit(data.email);
+      }
+      logEvent('Newsletter', 'Signup', data.email);
+      console.log('Newsletter signup:', data.email);
+      reset();
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000);
+    } catch (error) {
+      console.error('Newsletter signup failed:', error);
+    } finally {
+      setIsSubmitting(false);
     }
-    logEvent('Newsletter', 'Signup', data.email);
-    console.log('Newsletter signup:', data.email);
-    reset();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmitForm)} className="mt-8 sm:flex">
-      <div className="w-full sm:max-w-xs">
-        <input
-          type="email"
-          {...register('email')}
-          placeholder="Enter your email"
-          className="w-full px-4 py-2 rounded-md border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
-          aria-label="Email for newsletter"
-        />
-        {errors.email && <p className="mt-1 text-red-500 text-sm">{errors.email.message}</p>}
-      </div>
-      <button
-        type="submit"
-        className="mt-3 sm:mt-0 sm:ml-3 w-full sm:w-auto px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors duration-300"
-      >
-        Subscribe
-      </button>
-    </form>
+    <div className="relative">
+      <form onSubmit={handleSubmit(onSubmitForm)} className="mt-8 sm:flex">
+        <div className="w-full sm:max-w-xs">
+          <input
+            type="email"
+            {...register('email')}
+            placeholder="Enter your email"
+            className={`w-full px-4 py-2 rounded-md border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50 ${
+              errors.email ? 'border-red-500' : ''
+            }`}
+            aria-label="Email for newsletter"
+            disabled={isSubmitting}
+          />
+          <AnimatePresence>
+            {errors.email && (
+              <motion.p
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="mt-1 text-red-500 text-sm"
+              >
+                {errors.email.message}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
+        <button
+          type="submit"
+          className={`mt-3 sm:mt-0 sm:ml-3 w-full sm:w-auto px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors duration-300 ${
+            isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <span className="flex items-center justify-center">
+              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Subscribing...
+            </span>
+          ) : (
+            'Subscribe'
+          )}
+        </button>
+      </form>
+      
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="absolute top-full left-0 right-0 mt-4 p-4 bg-green-100 text-green-700 rounded-md shadow-md"
+          >
+            Thank you for subscribing! We'll keep you updated with the latest insights.
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 
