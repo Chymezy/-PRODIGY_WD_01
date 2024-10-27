@@ -2,7 +2,7 @@
 
 This project is a responsive landing page for InsightAI, a fictional AI-powered analytics company. It's built with React, Vite, TypeScript, and Tailwind CSS, featuring an interactive navigation menu, dark mode support, and various sections showcasing the company's services and benefits.
 
-![InsightAI Landing Page Screenshot](./screenshot.png)
+![InsightAI Landing Page Screenshot](/screenshot.png)
 
 ## Features
 
