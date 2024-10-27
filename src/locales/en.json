@@ -7,14 +7,14 @@
     "faq": "FAQ"
   },
   "hero": {
-    "title": "Unlock the Power of AI with NeuroBen",
+    "title": "Unlock the Power of AI with NeuraPulse",
     "subtitle": "Transform your business with AI-powered analytics that deliver 10x ROI",
     "cta": "Get Your Free AI Consultation",
     "offer": "Limited time offer: First 50 sign-ups get a personalized AI strategy session"
   },
   "about": {
-    "ariaLabel": "About NeuroBen",
-    "title": "Why Choose NeuroBen?",
+    "ariaLabel": "About NeuraPulse",
+    "title": "Why Choose NeuraPulse?",
     "boostRevenue": {
       "icon": "📈",
       "title": "Boost Revenue",
@@ -71,19 +71,19 @@
   },
   "newsletter": {
     "ariaLabel": "Newsletter Signup",
-    "title": "Stay Updated with NeuraNova",
+    "title": "Stay Updated with NeuraPulse",
     "description": "Subscribe to our newsletter for the latest AI insights and updates."
   },
   "footer": {
-    "about": "About NeuroBen",
-    "description": "NeuroBen is a leading provider of AI-powered analytics solutions, helping businesses make data-driven decisions and achieve exponential growth.",
+    "about": "About NeuraPulse",
+    "description": "NeuraPulse is a leading provider of AI-powered analytics solutions, helping businesses make data-driven decisions and achieve exponential growth.",
     "quickLinks": "Quick Links",
     "contactUs": "Contact Us",
     "address": "123 AI Street, Tech City, 12345",
     "phone": "Phone: (123) 456-7890",
     "email": "Email",
     "followUs": "Follow Us",
-    "copyright": "© {year} NeuroBen. All rights reserved.",
+    "copyright": "© {year} NeuraPulse. All rights reserved.",
     "aria": {
       "home": "Go to Home",
       "about": "Go to About",
