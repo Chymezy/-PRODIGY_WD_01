@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import Footer from './Footer';
+import LazyImage from './LazyImage';
+import applicationBg from '../assets/application-bg.jpg'; // Import the image
 
 const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -65,7 +67,10 @@ const NewsletterSignup: React.FC = () => {
 
 const LandingPage: React.FC = () => {
   const controls = useAnimation();
-  const [ref, inView] = useInView();
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
 
   useEffect(() => {
     if (inView) {
@@ -82,9 +87,11 @@ const LandingPage: React.FC = () => {
     <div className="pt-16">
       <section id="home" className="relative bg-gradient-to-r from-purple-600 to-indigo-800 text-white py-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <video autoPlay loop muted className="object-cover w-full h-full opacity-30">
-            <source src="/path-to-your-video.mp4" type="video/mp4" />
-          </video>
+          <img
+            src={applicationBg} // Use the imported image
+            alt="AI Technology Background"
+            className="object-cover w-full h-full opacity-30"
+          />
         </div>
         <motion.div 
           className="container mx-auto px-6 text-center relative z-10"

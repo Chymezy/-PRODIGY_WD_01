@@ -47,32 +47,59 @@ const Navbar: React.FC = () => {
           <div className="text-2xl font-bold">
             <a href="/" className={`transition-colors duration-300 ${scrolled ? 'text-purple-600 dark:text-purple-400' : 'text-white'}`}>InsightAI</a>
           </div>
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={toggleDarkMode}
-              className="text-2xl focus:outline-none"
-              aria-label="Toggle dark mode"
-            >
-              {darkMode ? '🌙' : '☀️'}
-            </button>
+          <div className="flex items-center space-x-8">
             <div className="hidden md:flex space-x-8">
               {['Home', 'About', 'Services', 'Contact'].map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
                   onClick={(e) => handleNavClick(e, item.toLowerCase())}
-                  className={`hover:text-blue-400 transition-colors duration-300 ${
-                    scrolled ? 'text-gray-800' : 'text-white'
+                  className={`hover:text-purple-400 transition-colors duration-300 ${
+                    scrolled ? 'text-gray-800 dark:text-gray-200' : 'text-white'
                   }`}
                 >
                   {item}
                 </a>
               ))}
             </div>
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-300"
+              aria-label="Toggle dark mode"
+            >
+              <motion.svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                animate={{ rotate: darkMode ? 180 : 0 }}
+                transition={{ duration: 0.5 }}
+                className={`${darkMode ? 'text-purple-400' : 'text-yellow-500'}`}
+              >
+                {darkMode ? (
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                ) : (
+                  <circle cx="12" cy="12" r="5" />
+                )}
+                {!darkMode && <line x1="12" y1="1" x2="12" y2="3" />}
+                {!darkMode && <line x1="12" y1="21" x2="12" y2="23" />}
+                {!darkMode && <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />}
+                {!darkMode && <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />}
+                {!darkMode && <line x1="1" y1="12" x2="3" y2="12" />}
+                {!darkMode && <line x1="21" y1="12" x2="23" y2="12" />}
+                {!darkMode && <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />}
+                {!darkMode && <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />}
+              </motion.svg>
+            </button>
             <div className="md:hidden">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`text-3xl focus:outline-none ${scrolled ? 'text-gray-800' : 'text-white'}`}
+                className={`text-3xl focus:outline-none ${scrolled ? 'text-gray-800 dark:text-gray-200' : 'text-white'}`}
               >
                 ☰
               </button>
@@ -81,13 +108,13 @@ const Navbar: React.FC = () => {
         </div>
       </div>
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white">
+        <div className="md:hidden bg-white dark:bg-gray-800">
           {['Home', 'About', 'Services', 'Contact'].map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
               onClick={(e) => handleNavClick(e, item.toLowerCase())}
-              className="block py-2 px-4 text-gray-800 hover:bg-gray-200"
+              className="block py-2 px-4 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
             >
               {item}
             </a>
