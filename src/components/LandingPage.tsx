@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import Footer from './Footer';
 
 const LandingPage: React.FC = () => {
   const controls = useAnimation();
@@ -150,6 +151,8 @@ const LandingPage: React.FC = () => {
           {/* Add FAQ items here */}
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 };
