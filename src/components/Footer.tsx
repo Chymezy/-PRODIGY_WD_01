@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">{t('footer.about')}</h3>
             <p className="text-gray-400 dark:text-gray-300">
-              {t('footer.description')}
+              NeuraPulse is a leading provider of AI-powered analytics solutions, helping businesses make data-driven decisions and achieve exponential growth.
             </p>
           </div>
           <nav>
@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
             <address className="text-gray-400 not-italic">
               <p>{t('footer.address')}</p>
               <p>{t('footer.phone')}</p>
-              <p>{t('footer.email')}: <a href="mailto:info@neuranova.com" className="hover:text-white transition-colors duration-300">info@neuranova.com</a></p>
+              <p>{t('footer.email')}: <a href="mailto:info@neurapulse.com" className="hover:text-white transition-colors duration-300">info@neurapulse.com</a></p>
             </address>
           </div>
           <div>
@@ -67,7 +67,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 dark:text-gray-300">
-          <p>{t('footer.copyright', { year: currentYear })}</p>
+          <p>&copy; {currentYear} NeuraPulse. All rights reserved.</p>
         </div>
       </div>
     </footer>

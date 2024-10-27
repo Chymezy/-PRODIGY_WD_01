@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'NeuraNova',
-        short_name: 'NeuraNova',
+        name: 'NeuroBen',
+        short_name: 'NeuroBen',
         description: 'AI-powered analytics solutions',
         theme_color: '#ffffff',
         icons: [

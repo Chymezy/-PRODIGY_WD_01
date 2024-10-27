@@ -7,14 +7,14 @@
     "faq": "Preguntas Frecuentes"
   },
   "hero": {
-    "title": "Desbloquea el Poder de la IA con NeuraNova",
+    "title": "Desbloquea el Poder de la IA con NeuroBen",
     "subtitle": "Transforma tu negocio con análisis impulsados por IA que ofrecen un ROI 10 veces mayor",
     "cta": "Obtén Tu Consulta de IA Gratuita",
     "offer": "Oferta por tiempo limitado: Las primeras 50 inscripciones obtienen una sesión de estrategia de IA personalizada"
   },
   "about": {
-    "ariaLabel": "Acerca de NeuraNova",
-    "title": "¿Por Qué Elegir NeuraNova?",
+    "ariaLabel": "Acerca de NeuroBen",
+    "title": "¿Por Qué Elegir NeuroBen?",
     "boostRevenue": {
       "icon": "📈",
       "title": "Aumenta los Ingresos",
@@ -71,19 +71,19 @@
   },
   "newsletter": {
     "ariaLabel": "Suscripción al Boletín",
-    "title": "Mantente Actualizado con NeuraNova",
+    "title": "Mantente Actualizado con NeuroBen",
     "description": "Suscríbete a nuestro boletín para recibir los últimos insights y actualizaciones de IA."
   },
   "footer": {
-    "about": "Acerca de NeuraNova",
-    "description": "NeuraNova es un proveedor líder de soluciones de análisis impulsadas por IA, ayudando a las empresas a tomar decisiones basadas en datos y lograr un crecimiento exponencial.",
+    "about": "Acerca de NeuroBen",
+    "description": "NeuroBen es un proveedor líder de soluciones de análisis impulsadas por IA, ayudando a las empresas a tomar decisiones basadas en datos y lograr un crecimiento exponencial.",
     "quickLinks": "Enlaces Rápidos",
     "contactUs": "Contáctanos",
     "address": "Calle IA 123, Ciudad Tech, 12345",
     "phone": "Teléfono: (123) 456-7890",
     "email": "Correo electrónico",
     "followUs": "Síguenos",
-    "copyright": "© {year} NeuraNova. Todos los derechos reservados.",
+    "copyright": "© {year} NeuroBen. Todos los derechos reservados.",
     "aria": {
       "home": "Ir a Inicio",
       "about": "Ir a Acerca de",

@@ -133,7 +133,7 @@ const LandingPage: React.FC = () => {
             animate="visible"
             variants={fadeIn}
           >
-            <h1 className="text-5xl font-bold mb-4">{t('hero.title', 'Unlock the Power of AI with NeuraNova')}</h1>
+            <h1 className="text-5xl font-bold mb-4">{t('hero.title', 'Unlock the Power of AI with NeuraPulse')}</h1>
             <p className="text-xl mb-8">{t('hero.subtitle', 'Transform your business with AI-powered analytics that deliver 10x ROI')}</p>
             <motion.button 
               className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors duration-300 shadow-lg"
@@ -272,11 +272,11 @@ const LandingPage: React.FC = () => {
                 answer="AI-powered analytics uses artificial intelligence and machine learning algorithms to analyze large datasets, identify patterns, and generate insights that would be difficult or impossible for humans to discover on their own."
               />
               <MemoizedFAQItem 
-                question="How can NeuraNova benefit my business?" 
-                answer="NeuraNova can help your business make data-driven decisions, predict future trends, optimize operations, and gain a competitive edge in your industry."
+                question="How can NeuraPulse benefit my business?" 
+                answer="NeuraPulse can help your business make data-driven decisions, predict future trends, optimize operations, and gain a competitive edge in your industry."
               />
               <MemoizedFAQItem 
-                question="Is my data safe with NeuraNova?" 
+                question="Is my data safe with NeuraPulse?" 
                 answer="Yes, we take data security very seriously. We use state-of-the-art encryption and security measures to protect your data, and we comply with all relevant data protection regulations."
               />
             </div>
@@ -287,8 +287,8 @@ const LandingPage: React.FC = () => {
       <ErrorBoundary>
         <section id="newsletter" className="py-20 bg-gray-100 dark:bg-gray-800" role="region" aria-label={t('newsletter.ariaLabel')}>
           <div className="container mx-auto px-6 text-center">
-            <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">{t('newsletter.title')}</h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-8">{t('newsletter.description')}</p>
+            <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">{t('newsletter.title', 'Stay Updated with NeuraPulse')}</h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-8">{t('newsletter.description', 'Subscribe to our newsletter for the latest AI insights and updates.')}</p>
             <MemoizedNewsletterSignup onSubmit={(email) => {
               console.log(`Submitted email: ${email}`);
               // Here you would typically send the email to your backend API
