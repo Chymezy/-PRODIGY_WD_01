@@ -4,9 +4,11 @@ interface LazyImageProps {
   src: string;
   alt: string;
   className?: string;
+  sizes?: string;
+  srcSet?: string;
 }
 
-const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className }) => {
+const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className, sizes, srcSet }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
@@ -39,6 +41,8 @@ const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className }) => {
     <img
       ref={imgRef}
       src={isLoaded ? src : ''}
+      srcSet={isLoaded ? srcSet : ''}
+      sizes={sizes}
       alt={alt}
       className={`transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${className}`}
     />

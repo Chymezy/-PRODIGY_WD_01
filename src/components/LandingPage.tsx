@@ -6,6 +6,10 @@ import LazyImage from './LazyImage';
 import ErrorBoundary from './ErrorBoundary';
 import applicationBg from '../assets/application-bg.jpg'; // Import the image
 import revolutionizeImage from '../assets/revolutionize-business.webp'; // Import the image
+import { logEvent } from '../services/analytics';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 
 const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,33 +40,42 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
   );
 };
 
+const schema = z.object({
+  email: z.string().email({ message: "Invalid email address" }),
+});
+
+type NewsletterFormData = z.infer<typeof schema>;
+
 interface NewsletterSignupProps {
   onSubmit?: (email: string) => void;
 }
 
 const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ onSubmit }) => {
-  const [email, setEmail] = useState('');
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<NewsletterFormData>({
+    resolver: zodResolver(schema),
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmitForm = (data: NewsletterFormData) => {
     if (onSubmit) {
-      onSubmit(email);
+      onSubmit(data.email);
     }
-    console.log('Newsletter signup:', email);
-    setEmail('');
+    logEvent('Newsletter', 'Signup', data.email);
+    console.log('Newsletter signup:', data.email);
+    reset();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-8 sm:flex">
-      <input
-        type="email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Enter your email"
-        className="w-full px-4 py-2 rounded-md sm:max-w-xs"
-        aria-label="Email for newsletter"
-      />
+    <form onSubmit={handleSubmit(onSubmitForm)} className="mt-8 sm:flex">
+      <div className="w-full sm:max-w-xs">
+        <input
+          type="email"
+          {...register('email')}
+          placeholder="Enter your email"
+          className="w-full px-4 py-2 rounded-md border-gray-300 focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
+          aria-label="Email for newsletter"
+        />
+        {errors.email && <p className="mt-1 text-red-500 text-sm">{errors.email.message}</p>}
+      </div>
       <button
         type="submit"
         className="mt-3 sm:mt-0 sm:ml-3 w-full sm:w-auto px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors duration-300"
@@ -95,16 +108,14 @@ const LandingPage: React.FC = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
-  // Add analytics tracking
-  const trackEvent = (eventName: string) => {
-    // Implement your analytics tracking here
-    console.log(`Event tracked: ${eventName}`);
+  const trackEvent = (category: string, action: string, label?: string) => {
+    logEvent(category, action, label);
   };
 
   return (
     <div className="pt-16">
       <ErrorBoundary>
-        <section id="home" className="relative bg-gradient-to-r from-purple-600 to-indigo-800 text-white py-32 overflow-hidden" role="banner">
+        <section id="home" className="relative bg-gradient-to-r from-purple-600 to-indigo-800 text-white py-16 md:py-32 overflow-hidden" role="banner">
           <div className="absolute inset-0 z-0">
             <img
               src={applicationBg} // Use the imported image
@@ -133,10 +144,10 @@ const LandingPage: React.FC = () => {
       </ErrorBoundary>
       
       <ErrorBoundary>
-        <section id="about" className="py-20 bg-gray-50 dark:bg-gray-800" role="region" aria-label="About NeuraNova">
-          <div className="container mx-auto px-6">
-            <h2 className="text-4xl font-bold mb-8 text-center text-gray-800 dark:text-white">Why Choose NeuraNova?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <section id="about" className="py-16 md:py-20 bg-gray-50 dark:bg-gray-800" role="region" aria-label="About NeuraNova">
+          <div className="container mx-auto px-4 md:px-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800 dark:text-white">Why Choose NeuraNova?</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
               <div className="text-center">
                 <div className="text-5xl mb-4 text-purple-600 dark:text-purple-400">📈</div>
                 <h3 className="text-xl font-semibold mb-2">Boost Revenue</h3>
@@ -203,7 +214,13 @@ const LandingPage: React.FC = () => {
               <div className="w-full md:w-1/2 flex flex-col justify-center mb-8 md:mb-0">
                 <h2 className="text-4xl font-bold mb-8">Ready to Revolutionize Your Business?</h2>
                 <p className="text-xl mb-8">Join the AI revolution and stay ahead of your competition. Contact us now!</p>
-                <button className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors duration-300 shadow-lg self-start">
+                <button 
+                  className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors duration-300 shadow-lg self-start"
+                  onClick={() => {
+                    trackEvent('CTA', 'Click', 'Schedule Consultation');
+                    alert('Thank you for your interest! Our team will contact you shortly to schedule your free consultation.');
+                  }}
+                >
                   Schedule Your Free Consultation
                 </button>
                 <p className="mt-4">Or reach us at: <a href="mailto:info@neuranova.com" className="underline">info@neuranova.com</a></p>
@@ -282,9 +299,9 @@ const LandingPage: React.FC = () => {
           <div className="container mx-auto px-6 text-center">
             <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">Stay Updated with NeuraNova</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-8">Subscribe to our newsletter for the latest AI insights and updates.</p>
-            <MemoizedNewsletterSignup onSubmit={(email) => {
+            <NewsletterSignup onSubmit={(email) => {
               console.log(`Submitted email: ${email}`);
-              trackEvent('newsletter_signup');
+              // Here you would typically send the email to your backend API
             }} />
           </div>
         </section>
