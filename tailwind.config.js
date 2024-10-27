@@ -22,9 +22,6 @@ export default {
           900: '#111827',
         },
       },
-      transition: {
-        colors: 'color 0.3s ease',
-      },
     },
   },
   plugins: [

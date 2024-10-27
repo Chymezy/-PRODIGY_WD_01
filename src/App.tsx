@@ -32,28 +32,6 @@ const App: React.FC = () => {
           <Footer />
           <BackToTop />
         </div>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "NeuraNova",
-            "url": "https://www.neuranova.com",
-            "logo": "https://www.neuranova.com/logo.png",
-            "description": "NeuraNova provides cutting-edge AI-powered analytics solutions to help businesses make data-driven decisions and achieve exponential growth.",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "123 AI Street",
-              "addressLocality": "Tech City",
-              "postalCode": "12345",
-              "addressCountry": "US"
-            },
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "telephone": "+1-123-456-7890",
-              "contactType": "customer service"
-            }
-          })}
-        </script>
       </DarkModeProvider>
     </I18nextProvider>
   )

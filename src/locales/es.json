@@ -13,19 +13,66 @@
     "offer": "Oferta por tiempo limitado: Las primeras 50 inscripciones obtienen una sesión de estrategia de IA personalizada"
   },
   "about": {
+    "ariaLabel": "Acerca de NeuraNova",
     "title": "¿Por Qué Elegir NeuraNova?",
     "boostRevenue": {
+      "icon": "📈",
       "title": "Aumenta los Ingresos",
       "description": "Nuestros clientes ven un aumento promedio del 35% en los ingresos en 6 meses"
     },
     "saveTime": {
+      "icon": "⏱️",
       "title": "Ahorra Tiempo",
       "description": "Reduce el tiempo de toma de decisiones en un 70% con nuestros insights impulsados por IA"
     },
     "scaleFaster": {
+      "icon": "🚀",
       "title": "Escala Más Rápido",
       "description": "Haz crecer tu negocio 5 veces más rápido con estrategias basadas en datos"
     }
+  },
+  "services": {
+    "title": "Nuestros Servicios de IA de Vanguardia",
+    "predictiveAnalytics": {
+      "icon": "🔮",
+      "name": "Análisis Predictivo",
+      "description": "Pronostica tendencias y toma decisiones proactivas"
+    },
+    "nlp": {
+      "icon": "💬",
+      "name": "Procesamiento de Lenguaje Natural",
+      "description": "Comprende y aprovecha el sentimiento del cliente"
+    },
+    "computerVision": {
+      "icon": "👁️",
+      "name": "Visión por Computadora",
+      "description": "Obtén insights de datos de imágenes y video"
+    }
+  },
+  "testimonials": {
+    "title": "Lo Que Dicen Nuestros Clientes",
+    "client1": {
+      "quote": "NeuraNova transformó nuestro negocio. Hemos visto un aumento del 50% en la retención de clientes y un impulso del 40% en las ventas.",
+      "author": "- Juan Pérez, CEO de TechCorp"
+    },
+    "client2": {
+      "quote": "Los insights impulsados por IA que hemos obtenido han sido revolucionarios. ¡Nuestra productividad se ha disparado!",
+      "author": "- María García, CTO de InnovateCo"
+    }
+  },
+  "contact": {
+    "title": "¿Listo para Revolucionar tu Negocio?",
+    "description": "Únete a la revolución de la IA y mantente por delante de tu competencia. ¡Contáctanos ahora!",
+    "ctaButton": "Programa Tu Consulta Gratuita",
+    "alertMessage": "¡Gracias por tu interés! Nuestro equipo te contactará pronto para programar tu consulta gratuita.",
+    "orReachUs": "O contáctanos en:",
+    "email": "info@neuranova.com",
+    "imageAlt": "Revoluciona Tu Negocio con IA"
+  },
+  "newsletter": {
+    "ariaLabel": "Suscripción al Boletín",
+    "title": "Mantente Actualizado con NeuraNova",
+    "description": "Suscríbete a nuestro boletín para recibir los últimos insights y actualizaciones de IA."
   },
   "footer": {
     "about": "Acerca de NeuraNova",
@@ -47,7 +94,7 @@
     }
   },
   "errorBoundary": {
-    "errorMessage": "Lo sentimos... hubo un error"
+    "errorMessage": "Lo sentimos... ha ocurrido un error"
   },
   "backToTop": {
     "text": "↑",

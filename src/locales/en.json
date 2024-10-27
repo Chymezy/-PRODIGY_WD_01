@@ -13,19 +13,66 @@
     "offer": "Limited time offer: First 50 sign-ups get a personalized AI strategy session"
   },
   "about": {
+    "ariaLabel": "About NeuraNova",
     "title": "Why Choose NeuraNova?",
     "boostRevenue": {
+      "icon": "📈",
       "title": "Boost Revenue",
       "description": "Our clients see an average 35% increase in revenue within 6 months"
     },
     "saveTime": {
+      "icon": "⏱️",
       "title": "Save Time",
       "description": "Reduce decision-making time by 70% with our AI-powered insights"
     },
     "scaleFaster": {
+      "icon": "🚀",
       "title": "Scale Faster",
       "description": "Grow your business 5x faster with data-driven strategies"
     }
+  },
+  "services": {
+    "title": "Our Cutting-Edge AI Services",
+    "predictiveAnalytics": {
+      "icon": "🔮",
+      "name": "Predictive Analytics",
+      "description": "Forecast trends and make proactive decisions"
+    },
+    "nlp": {
+      "icon": "💬",
+      "name": "Natural Language Processing",
+      "description": "Understand and leverage customer sentiment"
+    },
+    "computerVision": {
+      "icon": "👁️",
+      "name": "Computer Vision",
+      "description": "Gain insights from images and video data"
+    }
+  },
+  "testimonials": {
+    "title": "What Our Clients Say",
+    "client1": {
+      "quote": "NeuraNova transformed our business. We've seen a 50% increase in customer retention and a 40% boost in sales.",
+      "author": "- John Doe, CEO of TechCorp"
+    },
+    "client2": {
+      "quote": "The AI-driven insights we've gained have been game-changing. Our productivity has skyrocketed!",
+      "author": "- Jane Smith, CTO of InnovateCo"
+    }
+  },
+  "contact": {
+    "title": "Ready to Revolutionize Your Business?",
+    "description": "Join the AI revolution and stay ahead of your competition. Contact us now!",
+    "ctaButton": "Schedule Your Free Consultation",
+    "alertMessage": "Thank you for your interest! Our team will contact you shortly to schedule your free consultation.",
+    "orReachUs": "Or reach us at:",
+    "email": "info@neuranova.com",
+    "imageAlt": "Revolutionize Your Business with AI"
+  },
+  "newsletter": {
+    "ariaLabel": "Newsletter Signup",
+    "title": "Stay Updated with NeuraNova",
+    "description": "Subscribe to our newsletter for the latest AI insights and updates."
   },
   "footer": {
     "about": "About NeuraNova",

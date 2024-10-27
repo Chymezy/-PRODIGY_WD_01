@@ -1,13 +1,18 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-interface Props extends WithTranslation {
+interface Props {
   children: ReactNode;
 }
 
 interface State {
   hasError: boolean;
 }
+
+const ErrorFallback: React.FC = () => {
+  const { t } = useTranslation();
+  return <h1>{t('errorBoundary.errorMessage')}</h1>;
+};
 
 class ErrorBoundary extends Component<Props, State> {
   public state: State = {
@@ -23,14 +28,12 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   public render() {
-    const { t } = this.props;
-
     if (this.state.hasError) {
-      return <h1>{t('errorBoundary.errorMessage')}</h1>;
+      return <ErrorFallback />;
     }
 
     return this.props.children;
   }
 }
 
-export default withTranslation()(ErrorBoundary);
+export default ErrorBoundary;

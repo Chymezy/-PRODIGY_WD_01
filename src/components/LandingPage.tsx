@@ -11,6 +11,7 @@ import { logEvent } from '../services/analytics';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { withTranslation } from '../hoc/withTranslation';
 
 const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -146,25 +147,17 @@ const LandingPage: React.FC = () => {
       </ErrorBoundary>
       
       <ErrorBoundary>
-        <section id="about" className="py-16 md:py-20 bg-gray-50 dark:bg-gray-800" role="region" aria-label="About NeuraNova">
+        <section id="about" className="py-16 md:py-20 bg-gray-50 dark:bg-gray-800" role="region" aria-label={t('about.ariaLabel')}>
           <div className="container mx-auto px-4 md:px-6">
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800 dark:text-white">{t('about.title')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-              <div className="text-center">
-                <div className="text-5xl mb-4 text-purple-600 dark:text-purple-400">📈</div>
-                <h3 className="text-xl font-semibold mb-2">{t('about.boostRevenue.title')}</h3>
-                <p className="text-gray-600 dark:text-gray-300">{t('about.boostRevenue.description')}</p>
-              </div>
-              <div className="text-center">
-                <div className="text-5xl mb-4 text-purple-600">⏱️</div>
-                <h3 className="text-xl font-semibold mb-2">{t('about.saveTime.title')}</h3>
-                <p className="text-gray-600">{t('about.saveTime.description')}</p>
-              </div>
-              <div className="text-center">
-                <div className="text-5xl mb-4 text-purple-600">🚀</div>
-                <h3 className="text-xl font-semibold mb-2">{t('about.scaleFaster.title')}</h3>
-                <p className="text-gray-600">{t('about.scaleFaster.description')}</p>
-              </div>
+              {['boostRevenue', 'saveTime', 'scaleFaster'].map((item) => (
+                <div key={item} className="text-center">
+                  <div className="text-5xl mb-4 text-purple-600 dark:text-purple-400">{t(`about.${item}.icon`)}</div>
+                  <h3 className="text-xl font-semibold mb-2">{t(`about.${item}.title`)}</h3>
+                  <p className="text-gray-600 dark:text-gray-300">{t(`about.${item}.description`)}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -173,17 +166,13 @@ const LandingPage: React.FC = () => {
       <ErrorBoundary>
         <section id="services" className="py-20 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-6">
-            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">Our Cutting-Edge AI Services</h2>
+            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">{t('services.title')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                { name: 'Predictive Analytics', icon: '🔮', description: 'Forecast trends and make proactive decisions' },
-                { name: 'Natural Language Processing', icon: '💬', description: 'Understand and leverage customer sentiment' },
-                { name: 'Computer Vision', icon: '👁️', description: 'Gain insights from images and video data' }
-              ].map((service) => (
-                <div key={service.name} className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                  <div className="text-4xl mb-4">{service.icon}</div>
-                  <h3 className="text-xl font-semibold mb-4 text-purple-600 dark:text-purple-400">{service.name}</h3>
-                  <p className="text-gray-600 dark:text-gray-300">{service.description}</p>
+              {['predictiveAnalytics', 'nlp', 'computerVision'].map((service) => (
+                <div key={service} className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                  <div className="text-4xl mb-4">{t(`services.${service}.icon`)}</div>
+                  <h3 className="text-xl font-semibold mb-4 text-purple-600 dark:text-purple-400">{t(`services.${service}.name`)}</h3>
+                  <p className="text-gray-600 dark:text-gray-300">{t(`services.${service}.description`)}</p>
                 </div>
               ))}
             </div>
@@ -194,16 +183,14 @@ const LandingPage: React.FC = () => {
       <ErrorBoundary>
         <section id="testimonials" className="py-20 bg-purple-100 dark:bg-purple-900">
           <div className="container mx-auto px-6">
-            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">What Our Clients Say</h2>
+            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">{t('testimonials.title')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
-                <p className="text-gray-600 dark:text-gray-300 mb-4">"NeuraNova transformed our business. We've seen a 50% increase in customer retention and a 40% boost in sales."</p>
-                <p className="font-semibold text-gray-800 dark:text-white">- John Doe, CEO of TechCorp</p>
-              </div>
-              <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
-                <p className="text-gray-600 dark:text-gray-300 mb-4">"The AI-driven insights we've gained have been game-changing. Our productivity has skyrocketed!"</p>
-                <p className="font-semibold text-gray-800 dark:text-white">- Jane Smith, CTO of InnovateCo</p>
-              </div>
+              {['client1', 'client2'].map((client) => (
+                <div key={client} className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
+                  <p className="text-gray-600 dark:text-gray-300 mb-4">{t(`testimonials.${client}.quote`)}</p>
+                  <p className="font-semibold text-gray-800 dark:text-white">{t(`testimonials.${client}.author`)}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -214,24 +201,24 @@ const LandingPage: React.FC = () => {
           <div className="container mx-auto px-6">
             <div className="flex flex-col md:flex-row items-center">
               <div className="w-full md:w-1/2 flex flex-col justify-center mb-8 md:mb-0">
-                <h2 className="text-4xl font-bold mb-8">Ready to Revolutionize Your Business?</h2>
-                <p className="text-xl mb-8">Join the AI revolution and stay ahead of your competition. Contact us now!</p>
+                <h2 className="text-4xl font-bold mb-8">{t('contact.title')}</h2>
+                <p className="text-xl mb-8">{t('contact.description')}</p>
                 <button 
                   className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors duration-300 shadow-lg self-start"
                   onClick={() => {
                     trackEvent('CTA', 'Click', 'Schedule Consultation');
-                    alert('Thank you for your interest! Our team will contact you shortly to schedule your free consultation.');
+                    alert(t('contact.alertMessage'));
                   }}
                 >
-                  Schedule Your Free Consultation
+                  {t('contact.ctaButton')}
                 </button>
-                <p className="mt-4">Or reach us at: <a href="mailto:info@neuranova.com" className="underline">info@neuranova.com</a></p>
+                <p className="mt-4">{t('contact.orReachUs')} <a href="mailto:info@neuranova.com" className="underline">{t('contact.email')}</a></p>
               </div>
               <div className="w-full md:w-1/2 md:pl-8 flex justify-center items-center">
                 <div className="w-full" style={{ maxWidth: '300px' }}>
                   <img 
                     src={revolutionizeImage} 
-                    alt="Revolutionize Your Business with AI" 
+                    alt={t('contact.imageAlt')}
                     className="w-full h-auto object-contain rounded-lg shadow-xl"
                   />
                 </div>
@@ -297,11 +284,11 @@ const LandingPage: React.FC = () => {
       </ErrorBoundary>
       
       <ErrorBoundary>
-        <section id="newsletter" className="py-20 bg-gray-100 dark:bg-gray-800" role="region" aria-label="Newsletter Signup">
+        <section id="newsletter" className="py-20 bg-gray-100 dark:bg-gray-800" role="region" aria-label={t('newsletter.ariaLabel')}>
           <div className="container mx-auto px-6 text-center">
-            <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">Stay Updated with NeuraNova</h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-8">Subscribe to our newsletter for the latest AI insights and updates.</p>
-            <NewsletterSignup onSubmit={(email) => {
+            <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">{t('newsletter.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-8">{t('newsletter.description')}</p>
+            <MemoizedNewsletterSignup onSubmit={(email) => {
               console.log(`Submitted email: ${email}`);
               // Here you would typically send the email to your backend API
             }} />
@@ -314,4 +301,4 @@ const LandingPage: React.FC = () => {
   );
 };
 
-export default LandingPage;
+export default withTranslation(LandingPage);
