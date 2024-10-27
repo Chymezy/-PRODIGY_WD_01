@@ -15,12 +15,12 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-gray-800 dark:bg-gray-900 text-white py-12">
+    <footer className="bg-gray-900 text-white py-12">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">{t('footer.about')}</h3>
-            <p className="text-gray-400 dark:text-gray-300">
+            <h2 className="text-lg font-semibold mb-4 text-white">About NeuraPulse</h2>
+            <p className="text-gray-300">
               NeuraPulse is a leading provider of AI-powered analytics solutions, helping businesses make data-driven decisions and achieve exponential growth.
             </p>
           </div>
@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-white transition-colors duration-300"
-                  aria-label={t('footer.aria.followOn', { social: social.name })}
+                  aria-label={t('footer.aria.followOn', { replace: { social: social.name } })}
                 >
                   <social.icon className="w-6 h-6" />
                 </a>

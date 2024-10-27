@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useDarkMode } from '../contexts/DarkModeContext';
 import { HiSun, HiMoon } from 'react-icons/hi';
 import { useTranslation } from '../hooks/useTranslation';
+import { colors } from '../utils/colors';
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -69,7 +70,7 @@ const Navbar: React.FC = () => {
             <div className="text-2xl font-bold">
               <a 
                 href="/" 
-                className={`transition-colors duration-300 ${scrolled ? 'text-purple-600 dark:text-purple-400' : 'text-white'}`}
+                className={`transition-colors duration-300 ${scrolled ? 'text-purple-700 dark:text-purple-300' : 'text-white'}`}
                 aria-label={t('accessibility.homeLink', 'NeuraPulse - Return to homepage')}
               >
                 NeuraPulse

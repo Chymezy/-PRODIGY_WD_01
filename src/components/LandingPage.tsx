@@ -179,7 +179,7 @@ const LandingPage: React.FC = () => {
       <ErrorBoundary>
         <section 
           id="home" 
-          className="relative bg-gradient-to-r from-purple-600 to-indigo-800 text-white py-32 overflow-hidden"
+          className="relative bg-gradient-to-r from-purple-700 to-indigo-800 text-white py-32 overflow-hidden"
           role="region"
           aria-label={t('accessibility.heroSection', 'Welcome to NeuraPulse')}
         >
@@ -234,7 +234,7 @@ const LandingPage: React.FC = () => {
                     {t(`about.${item}.icon`)}
                   </span>
                   <h3 className="text-xl font-semibold mb-2">{t(`about.${item}.title`)}</h3>
-                  <p className="text-gray-600 dark:text-gray-300">{t(`about.${item}.description`)}</p>
+                  <p className="text-gray-700 dark:text-gray-300">{t(`about.${item}.description`)}</p>
                 </div>
               ))}
             </div>
@@ -267,7 +267,7 @@ const LandingPage: React.FC = () => {
                   <h3 className="text-xl font-semibold mb-4 text-purple-600 dark:text-purple-400">
                     {t(`services.${service}.name`)}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300">{t(`services.${service}.description`)}</p>
+                  <p className="text-gray-700 dark:text-gray-300">{t(`services.${service}.description`)}</p>
                 </div>
               ))}
             </div>
@@ -294,7 +294,7 @@ const LandingPage: React.FC = () => {
                   className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md"
                   role="listitem"
                 >
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">{t(`testimonials.${client}.quote`)}</p>
+                  <p className="text-gray-700 dark:text-gray-300 mb-4">{t(`testimonials.${client}.quote`)}</p>
                   <p className="font-semibold text-gray-800 dark:text-white">{t(`testimonials.${client}.author`)}</p>
                 </div>
               ))}

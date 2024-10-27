@@ -13,16 +13,9 @@ interface UseTranslationType {
 export const useTranslation = (): UseTranslationType => {
   const { t, i18n } = useI18nTranslation();
 
-  const changeLanguage = (lang: string) => {
-    i18n.changeLanguage(lang);
-  };
-
   return {
     t,
-    i18n: {
-      changeLanguage: changeLanguage,
-      language: i18n.language
-    },
+    i18n,
     currentLanguage: i18n.language
   };
 };
