@@ -1,7 +1,67 @@
-import React, { useEffect, useRef } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import Footer from './Footer';
+
+const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="border-b border-gray-200 py-4">
+      <button
+        className="flex justify-between items-center w-full text-left"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span className="text-lg font-semibold">{question}</span>
+        <span className="text-2xl">{isOpen ? '−' : '+'}</span>
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="mt-2 text-gray-600"
+          >
+            {answer}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const NewsletterSignup: React.FC = () => {
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // TODO: Implement newsletter signup logic
+    console.log('Newsletter signup:', email);
+    setEmail('');
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-8 sm:flex">
+      <input
+        type="email"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Enter your email"
+        className="w-full px-4 py-2 rounded-md sm:max-w-xs"
+        aria-label="Email for newsletter"
+      />
+      <button
+        type="submit"
+        className="mt-3 sm:mt-0 sm:ml-3 w-full sm:w-auto px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors duration-300"
+      >
+        Subscribe
+      </button>
+    </form>
+  );
+};
 
 const LandingPage: React.FC = () => {
   const controls = useAnimation();
@@ -45,14 +105,14 @@ const LandingPage: React.FC = () => {
         </motion.div>
       </section>
       
-      <section id="about" className="py-20 bg-gray-50">
+      <section id="about" className="py-20 bg-gray-50 dark:bg-gray-800">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold mb-8 text-center text-gray-800">Why Choose InsightAI?</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center text-gray-800 dark:text-white">Why Choose InsightAI?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="text-center">
-              <div className="text-5xl mb-4 text-purple-600">📈</div>
+              <div className="text-5xl mb-4 text-purple-600 dark:text-purple-400">📈</div>
               <h3 className="text-xl font-semibold mb-2">Boost Revenue</h3>
-              <p className="text-gray-600">Our clients see an average 35% increase in revenue within 6 months</p>
+              <p className="text-gray-600 dark:text-gray-300">Our clients see an average 35% increase in revenue within 6 months</p>
             </div>
             <div className="text-center">
               <div className="text-5xl mb-4 text-purple-600">⏱️</div>
@@ -68,36 +128,36 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
       
-      <section id="services" className="py-20">
+      <section id="services" className="py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold mb-12 text-center text-gray-800">Our Cutting-Edge AI Services</h2>
+          <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">Our Cutting-Edge AI Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { name: 'Predictive Analytics', icon: '🔮', description: 'Forecast trends and make proactive decisions' },
               { name: 'Natural Language Processing', icon: '💬', description: 'Understand and leverage customer sentiment' },
               { name: 'Computer Vision', icon: '👁️', description: 'Gain insights from images and video data' }
             ].map((service) => (
-              <div key={service.name} className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+              <div key={service.name} className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
                 <div className="text-4xl mb-4">{service.icon}</div>
-                <h3 className="text-xl font-semibold mb-4 text-purple-600">{service.name}</h3>
-                <p className="text-gray-600">{service.description}</p>
+                <h3 className="text-xl font-semibold mb-4 text-purple-600 dark:text-purple-400">{service.name}</h3>
+                <p className="text-gray-600 dark:text-gray-300">{service.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
       
-      <section id="testimonials" className="py-20 bg-purple-100">
+      <section id="testimonials" className="py-20 bg-purple-100 dark:bg-purple-900">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold mb-12 text-center text-gray-800">What Our Clients Say</h2>
+          <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">What Our Clients Say</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <p className="text-gray-600 mb-4">"InsightAI transformed our business. We've seen a 50% increase in customer retention and a 40% boost in sales."</p>
-              <p className="font-semibold">- John Doe, CEO of TechCorp</p>
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
+              <p className="text-gray-600 dark:text-gray-300 mb-4">"InsightAI transformed our business. We've seen a 50% increase in customer retention and a 40% boost in sales."</p>
+              <p className="font-semibold text-gray-800 dark:text-white">- John Doe, CEO of TechCorp</p>
             </div>
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <p className="text-gray-600 mb-4">"The AI-driven insights we've gained have been game-changing. Our productivity has skyrocketed!"</p>
-              <p className="font-semibold">- Jane Smith, CTO of InnovateCo</p>
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
+              <p className="text-gray-600 dark:text-gray-300 mb-4">"The AI-driven insights we've gained have been game-changing. Our productivity has skyrocketed!"</p>
+              <p className="font-semibold text-gray-800 dark:text-white">- Jane Smith, CTO of InnovateCo</p>
             </div>
           </div>
         </div>
@@ -145,10 +205,31 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
       
-      <section id="faq" className="py-20">
+      <section id="faq" className="py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold mb-12 text-center text-gray-800">Frequently Asked Questions</h2>
-          {/* Add FAQ items here */}
+          <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">Frequently Asked Questions</h2>
+          <div className="max-w-3xl mx-auto">
+            <FAQItem 
+              question="What is AI-powered analytics?" 
+              answer="AI-powered analytics uses artificial intelligence and machine learning algorithms to analyze large datasets, identify patterns, and generate insights that would be difficult or impossible for humans to discover on their own."
+            />
+            <FAQItem 
+              question="How can InsightAI benefit my business?" 
+              answer="InsightAI can help your business make data-driven decisions, predict future trends, optimize operations, and gain a competitive edge in your industry."
+            />
+            <FAQItem 
+              question="Is my data safe with InsightAI?" 
+              answer="Yes, we take data security very seriously. We use state-of-the-art encryption and security measures to protect your data, and we comply with all relevant data protection regulations."
+            />
+          </div>
+        </div>
+      </section>
+      
+      <section id="newsletter" className="py-20 bg-gray-100 dark:bg-gray-800">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">Stay Updated with InsightAI</h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-8">Subscribe to our newsletter for the latest AI insights and updates.</p>
+          <NewsletterSignup />
         </div>
       </section>
 

@@ -2,12 +2,12 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-800 text-white py-12">
+    <footer className="bg-gray-800 dark:bg-gray-900 text-white py-12">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="text-lg font-semibold mb-4">About InsightAI</h3>
-            <p className="text-gray-400">
+            <p className="text-gray-400 dark:text-gray-300">
               InsightAI is a leading provider of AI-powered analytics solutions, helping businesses make data-driven decisions and achieve exponential growth.
             </p>
           </div>
@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 dark:text-gray-300">
           <p>&copy; {new Date().getFullYear()} InsightAI. All rights reserved.</p>
         </div>
       </div>
