@@ -7,9 +7,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        blue: {
-          400: '#60A5FA',
-          600: '#2563EB',
+        purple: {
+          100: '#E9D8FD',
+          600: '#805AD5',
         },
         indigo: {
           800: '#3730A3',
