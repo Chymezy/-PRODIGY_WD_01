@@ -11,6 +11,7 @@
     "extract-translations": "ts-node --esm scripts/extractTranslations.ts"
   },
   "dependencies": {
+    "@axe-core/react": "^4.10.0",
     "@hookform/resolvers": "^3.9.0",
     "@tailwindcss/forms": "^0.5.9",
     "framer-motion": "^11.11.10",
