@@ -58,7 +58,8 @@
     "client2": {
       "quote": "Los insights impulsados por IA que hemos obtenido han sido revolucionarios. ¡Nuestra productividad se ha disparado!",
       "author": "- María García, CTO de InnovateCo"
-    }
+    },
+    "trustedCompanies": "Empresas que Confían en Nosotros"
   },
   "contact": {
     "title": "¿Listo para Revolucionar tu Negocio?",
@@ -99,5 +100,18 @@
   "backToTop": {
     "text": "↑",
     "ariaLabel": "Volver arriba"
+  },
+  "faq": {
+    "heading": "Preguntas Frecuentes",
+    "questions": {
+      "analytics": "¿Qué es el análisis impulsado por IA?",
+      "benefits": "¿Cómo puede NeuraPulse beneficiar a mi empresa?",
+      "security": "¿Están seguros mis datos con NeuraPulse?"
+    },
+    "answers": {
+      "analytics": "El análisis impulsado por IA utiliza inteligencia artificial y algoritmos de aprendizaje automático para analizar grandes conjuntos de datos, identificar patrones y generar insights que serían difíciles o imposibles de descubrir para los humanos.",
+      "benefits": "NeuraPulse puede ayudar a su empresa a tomar decisiones basadas en datos, predecir tendencias futuras, optimizar operaciones y obtener una ventaja competitiva en su industria.",
+      "security": "Sí, nos tomamos muy en serio la seguridad de los datos. Utilizamos encriptación y medidas de seguridad de última generación para proteger sus datos y cumplimos con todas las regulaciones relevantes de protección de datos."
+    }
   }
 }

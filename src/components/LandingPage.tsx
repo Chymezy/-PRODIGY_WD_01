@@ -1,12 +1,12 @@
 import React, { useEffect, useState, memo } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../hooks/useTranslation';
 import Footer from './Footer';
 import LazyImage from './LazyImage';
 import ErrorBoundary from './ErrorBoundary';
-import applicationBg from '../assets/application-bg.jpg'; // Import the image
-import revolutionizeImage from '../assets/revolutionize-business.webp'; // Import the image
+import applicationBg from '../assets/application-bg.jpg';
+import revolutionizeImage from '../assets/revolutionize-business.webp';
 import { logEvent } from '../services/analytics';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -174,14 +174,21 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="pt-16">
+    // Add main landmark and id for skip link
+    <main id="main-content" tabIndex={-1} className="pt-16">
       <ErrorBoundary>
-        <section id="home" className="relative bg-gradient-to-r from-purple-600 to-indigo-800 text-white py-16 md:py-32 overflow-hidden" role="banner">
+        <section 
+          id="home" 
+          className="relative bg-gradient-to-r from-purple-600 to-indigo-800 text-white py-32 overflow-hidden"
+          role="region"
+          aria-label={t('accessibility.heroSection', 'Welcome to NeuraPulse')}
+        >
           <div className="absolute inset-0 z-0">
-            <img
-              src={applicationBg} // Use the imported image
-              alt="AI Technology Background"
+            <LazyImage
+              src={applicationBg}
+              alt=""  // Decorative image
               className="object-cover w-full h-full opacity-30"
+              aria-hidden="true"
             />
           </div>
           <motion.div 
@@ -190,28 +197,42 @@ const LandingPage: React.FC = () => {
             animate="visible"
             variants={fadeIn}
           >
-            <h1 className="text-5xl font-bold mb-4">{t('hero.title', 'Unlock the Power of AI with NeuraPulse')}</h1>
-            <p className="text-xl mb-8">{t('hero.subtitle', 'Transform your business with AI-powered analytics that deliver 10x ROI')}</p>
+            <h1 className="text-5xl font-bold mb-4">{t('hero.title')}</h1>
+            <p className="text-xl mb-8">{t('hero.subtitle')}</p>
             <motion.button 
               className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors duration-300 shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              aria-label={t('accessibility.ctaButton', 'Get started with your free AI consultation')}
             >
-              {t('hero.cta', 'Get Your Free AI Consultation')}
+              {t('hero.cta')}
             </motion.button>
-            <p className="mt-4 text-sm">{t('hero.offer', 'Limited time offer: First 50 sign-ups get a personalized AI strategy session')}</p>
+            <p className="mt-4 text-sm" aria-live="polite">{t('hero.offer')}</p>
           </motion.div>
         </section>
       </ErrorBoundary>
-      
+
       <ErrorBoundary>
-        <section id="about" className="py-16 md:py-20 bg-gray-50 dark:bg-gray-800" role="region" aria-label={t('about.ariaLabel')}>
-          <div className="container mx-auto px-4 md:px-6">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800 dark:text-white">{t('about.title')}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <section 
+          id="about" 
+          className="py-20 bg-gray-50 dark:bg-gray-800"
+          role="region"
+          aria-labelledby="about-heading"
+        >
+          <div className="container mx-auto px-6">
+            <h2 id="about-heading" className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-white">
+              {t('about.title')}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8" role="list">
               {['boostRevenue', 'saveTime', 'scaleFaster'].map((item) => (
-                <div key={item} className="text-center">
-                  <div className="text-5xl mb-4 text-purple-600 dark:text-purple-400">{t(`about.${item}.icon`)}</div>
+                <div 
+                  key={item} 
+                  className="text-center"
+                  role="listitem"
+                >
+                  <span className="text-5xl mb-4 block" aria-hidden="true">
+                    {t(`about.${item}.icon`)}
+                  </span>
                   <h3 className="text-xl font-semibold mb-2">{t(`about.${item}.title`)}</h3>
                   <p className="text-gray-600 dark:text-gray-300">{t(`about.${item}.description`)}</p>
                 </div>
@@ -220,16 +241,32 @@ const LandingPage: React.FC = () => {
           </div>
         </section>
       </ErrorBoundary>
-      
+
+      {/* Services Section */}
       <ErrorBoundary>
-        <section id="services" className="py-20 bg-white dark:bg-gray-900">
+        <section 
+          id="services" 
+          className="py-20 bg-white dark:bg-gray-900"
+          role="region"
+          aria-labelledby="services-heading"
+        >
           <div className="container mx-auto px-6">
-            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">{t('services.title')}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <h2 id="services-heading" className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
+              {t('services.title')}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8" role="list">
               {['predictiveAnalytics', 'nlp', 'computerVision'].map((service) => (
-                <div key={service} className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                  <div className="text-4xl mb-4">{t(`services.${service}.icon`)}</div>
-                  <h3 className="text-xl font-semibold mb-4 text-purple-600 dark:text-purple-400">{t(`services.${service}.name`)}</h3>
+                <div 
+                  key={service}
+                  className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
+                  role="listitem"
+                >
+                  <span className="text-4xl mb-4 block" aria-hidden="true">
+                    {t(`services.${service}.icon`)}
+                  </span>
+                  <h3 className="text-xl font-semibold mb-4 text-purple-600 dark:text-purple-400">
+                    {t(`services.${service}.name`)}
+                  </h3>
                   <p className="text-gray-600 dark:text-gray-300">{t(`services.${service}.description`)}</p>
                 </div>
               ))}
@@ -237,14 +274,26 @@ const LandingPage: React.FC = () => {
           </div>
         </section>
       </ErrorBoundary>
-      
+
+      {/* Testimonials Section */}
       <ErrorBoundary>
-        <section id="testimonials" className="py-20 bg-purple-100 dark:bg-purple-900">
+        <section 
+          id="testimonials" 
+          className="py-20 bg-purple-100 dark:bg-purple-900"
+          role="region"
+          aria-labelledby="testimonials-heading"
+        >
           <div className="container mx-auto px-6">
-            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">{t('testimonials.title')}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <h2 id="testimonials-heading" className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
+              {t('testimonials.title')}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12" role="list">
               {['client1', 'client2'].map((client) => (
-                <div key={client} className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
+                <div 
+                  key={client}
+                  className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md"
+                  role="listitem"
+                >
                   <p className="text-gray-600 dark:text-gray-300 mb-4">{t(`testimonials.${client}.quote`)}</p>
                   <p className="font-semibold text-gray-800 dark:text-white">{t(`testimonials.${client}.author`)}</p>
                 </div>
@@ -253,13 +302,19 @@ const LandingPage: React.FC = () => {
           </div>
         </section>
       </ErrorBoundary>
-      
+
+      {/* Contact Section */}
       <ErrorBoundary>
-        <section id="contact" className="py-20 bg-gradient-to-r from-purple-600 to-indigo-800 text-white">
+        <section 
+          id="contact" 
+          className="py-20 bg-gradient-to-r from-purple-600 to-indigo-800 text-white"
+          role="region"
+          aria-labelledby="contact-heading"
+        >
           <div className="container mx-auto px-6">
             <div className="flex flex-col md:flex-row items-center">
               <div className="w-full md:w-1/2 flex flex-col justify-center mb-8 md:mb-0">
-                <h2 className="text-4xl font-bold mb-8">{t('contact.title')}</h2>
+                <h2 id="contact-heading" className="text-4xl font-bold mb-8">{t('contact.title')}</h2>
                 <p className="text-xl mb-8">{t('contact.description')}</p>
                 <button 
                   className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors duration-300 shadow-lg self-start"
@@ -285,11 +340,12 @@ const LandingPage: React.FC = () => {
           </div>
         </section>
       </ErrorBoundary>
-      
+
+      {/* Trusted Companies Section */}
       <ErrorBoundary>
         <section id="clients" className="py-20 bg-gray-50">
           <div className="container mx-auto px-6">
-            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800">Trusted by Industry Leaders</h2>
+            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800">{t('testimonials.trustedCompanies', 'Trusted by Industry Leaders')}</h2>
             <div className="flex flex-wrap justify-center items-center gap-12">
               {[
                 { name: 'Google', svg: 'M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z' },
@@ -318,34 +374,43 @@ const LandingPage: React.FC = () => {
           </div>
         </section>
       </ErrorBoundary>
-      
+
+      {/* FAQ Section */}
       <ErrorBoundary>
         <section id="faq" className="py-20 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-6">
-            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">Frequently Asked Questions</h2>
+            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">{t('faq.heading', 'Frequently Asked Questions')}</h2>
             <div className="max-w-3xl mx-auto">
               <MemoizedFAQItem 
-                question="What is AI-powered analytics?" 
-                answer="AI-powered analytics uses artificial intelligence and machine learning algorithms to analyze large datasets, identify patterns, and generate insights that would be difficult or impossible for humans to discover on their own."
+                question={t('faq.questions.analytics')}
+                answer={t('faq.answers.analytics')}
               />
               <MemoizedFAQItem 
-                question="How can NeuraPulse benefit my business?" 
-                answer="NeuraPulse can help your business make data-driven decisions, predict future trends, optimize operations, and gain a competitive edge in your industry."
+                question={t('faq.questions.benefits')}
+                answer={t('faq.answers.benefits')}
               />
               <MemoizedFAQItem 
-                question="Is my data safe with NeuraPulse?" 
-                answer="Yes, we take data security very seriously. We use state-of-the-art encryption and security measures to protect your data, and we comply with all relevant data protection regulations."
+                question={t('faq.questions.security')}
+                answer={t('faq.answers.security')}
               />
             </div>
           </div>
         </section>
       </ErrorBoundary>
-      
+
+      {/* Newsletter Section */}
       <ErrorBoundary>
-        <section id="newsletter" className="py-20 bg-gray-100 dark:bg-gray-800" role="region" aria-label={t('newsletter.ariaLabel')}>
+        <section 
+          id="newsletter" 
+          className="py-20 bg-gray-100 dark:bg-gray-800"
+          role="region"
+          aria-labelledby="newsletter-heading"
+        >
           <div className="container mx-auto px-6 text-center">
-            <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">{t('newsletter.title', 'Stay Updated with NeuraPulse')}</h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-8">{t('newsletter.description', 'Subscribe to our newsletter for the latest AI insights and updates.')}</p>
+            <h2 id="newsletter-heading" className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">
+              {t('newsletter.title')}
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-8">{t('newsletter.description')}</p>
             <MemoizedNewsletterSignup onSubmit={(email) => {
               console.log(`Submitted email: ${email}`);
               // Here you would typically send the email to your backend API
@@ -355,7 +420,7 @@ const LandingPage: React.FC = () => {
       </ErrorBoundary>
 
       <Footer />
-    </div>
+    </main>
   );
 };
 
