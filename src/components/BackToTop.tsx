@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from '../hooks/useTranslation';
 
 const BackToTop: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -34,9 +36,9 @@ const BackToTop: React.FC = () => {
           exit={{ opacity: 0 }}
           onClick={scrollToTop}
           className="fixed bottom-4 right-4 bg-purple-600 text-white p-2 rounded-full shadow-lg"
-          aria-label="Back to top"
+          aria-label={t('backToTop.ariaLabel')}
         >
-          ↑
+          {t('backToTop.text')}
         </motion.button>
       )}
     </AnimatePresence>

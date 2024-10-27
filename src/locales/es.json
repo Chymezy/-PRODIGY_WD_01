@@ -3,7 +3,8 @@
     "home": "Inicio",
     "about": "Acerca de",
     "services": "Servicios",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "faq": "Preguntas Frecuentes"
   },
   "hero": {
     "title": "Desbloquea el Poder de la IA con NeuraNova",
@@ -25,5 +26,31 @@
       "title": "Escala Más Rápido",
       "description": "Haz crecer tu negocio 5 veces más rápido con estrategias basadas en datos"
     }
+  },
+  "footer": {
+    "about": "Acerca de NeuraNova",
+    "description": "NeuraNova es un proveedor líder de soluciones de análisis impulsadas por IA, ayudando a las empresas a tomar decisiones basadas en datos y lograr un crecimiento exponencial.",
+    "quickLinks": "Enlaces Rápidos",
+    "contactUs": "Contáctanos",
+    "address": "Calle IA 123, Ciudad Tech, 12345",
+    "phone": "Teléfono: (123) 456-7890",
+    "email": "Correo electrónico",
+    "followUs": "Síguenos",
+    "copyright": "© {year} NeuraNova. Todos los derechos reservados.",
+    "aria": {
+      "home": "Ir a Inicio",
+      "about": "Ir a Acerca de",
+      "services": "Ir a Servicios",
+      "contact": "Ir a Contacto",
+      "faq": "Ir a Preguntas Frecuentes",
+      "followOn": "Síguenos en {social}"
+    }
+  },
+  "errorBoundary": {
+    "errorMessage": "Lo sentimos... hubo un error"
+  },
+  "backToTop": {
+    "text": "↑",
+    "ariaLabel": "Volver arriba"
   }
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, memo } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useTranslation } from '../hooks/useTranslation';
 import Footer from './Footer';
 import LazyImage from './LazyImage';
 import ErrorBoundary from './ErrorBoundary';
@@ -91,6 +92,7 @@ const MemoizedFAQItem = memo(FAQItem);
 const MemoizedNewsletterSignup = memo(NewsletterSignup);
 
 const LandingPage: React.FC = () => {
+  const { t } = useTranslation();
   const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -129,16 +131,16 @@ const LandingPage: React.FC = () => {
             animate="visible"
             variants={fadeIn}
           >
-            <h1 className="text-5xl font-bold mb-4">Unlock the Power of AI with NeuraNova</h1>
-            <p className="text-xl mb-8">Transform your business with AI-powered analytics that deliver 10x ROI</p>
+            <h1 className="text-5xl font-bold mb-4">{t('hero.title')}</h1>
+            <p className="text-xl mb-8">{t('hero.subtitle')}</p>
             <motion.button 
               className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors duration-300 shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Get Your Free AI Consultation
+              {t('hero.cta')}
             </motion.button>
-            <p className="mt-4 text-sm">Limited time offer: First 50 sign-ups get a personalized AI strategy session</p>
+            <p className="mt-4 text-sm">{t('hero.offer')}</p>
           </motion.div>
         </section>
       </ErrorBoundary>
@@ -146,22 +148,22 @@ const LandingPage: React.FC = () => {
       <ErrorBoundary>
         <section id="about" className="py-16 md:py-20 bg-gray-50 dark:bg-gray-800" role="region" aria-label="About NeuraNova">
           <div className="container mx-auto px-4 md:px-6">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800 dark:text-white">Why Choose NeuraNova?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800 dark:text-white">{t('about.title')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
               <div className="text-center">
                 <div className="text-5xl mb-4 text-purple-600 dark:text-purple-400">📈</div>
-                <h3 className="text-xl font-semibold mb-2">Boost Revenue</h3>
-                <p className="text-gray-600 dark:text-gray-300">Our clients see an average 35% increase in revenue within 6 months</p>
+                <h3 className="text-xl font-semibold mb-2">{t('about.boostRevenue.title')}</h3>
+                <p className="text-gray-600 dark:text-gray-300">{t('about.boostRevenue.description')}</p>
               </div>
               <div className="text-center">
                 <div className="text-5xl mb-4 text-purple-600">⏱️</div>
-                <h3 className="text-xl font-semibold mb-2">Save Time</h3>
-                <p className="text-gray-600">Reduce decision-making time by 70% with our AI-powered insights</p>
+                <h3 className="text-xl font-semibold mb-2">{t('about.saveTime.title')}</h3>
+                <p className="text-gray-600">{t('about.saveTime.description')}</p>
               </div>
               <div className="text-center">
                 <div className="text-5xl mb-4 text-purple-600">🚀</div>
-                <h3 className="text-xl font-semibold mb-2">Scale Faster</h3>
-                <p className="text-gray-600">Grow your business 5x faster with data-driven strategies</p>
+                <h3 className="text-xl font-semibold mb-2">{t('about.scaleFaster.title')}</h3>
+                <p className="text-gray-600">{t('about.scaleFaster.description')}</p>
               </div>
             </div>
           </div>

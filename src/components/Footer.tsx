@@ -1,10 +1,12 @@
 import React from 'react';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+import { useTranslation } from '../hooks/useTranslation';
 
 const Footer: React.FC = () => {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
-  const quickLinks = ['Home', 'About', 'Services', 'Contact', 'FAQ'];
+  const quickLinks = ['home', 'about', 'services', 'contact', 'faq'];
   const socialLinks = [
     { name: 'Facebook', icon: FaFacebookF, url: 'https://facebook.com' },
     { name: 'Twitter', icon: FaTwitter, url: 'https://twitter.com' },
@@ -17,37 +19,37 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">About NeuraNova</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('footer.about')}</h3>
             <p className="text-gray-400 dark:text-gray-300">
-              NeuraNova is a leading provider of AI-powered analytics solutions, helping businesses make data-driven decisions and achieve exponential growth.
+              {t('footer.description')}
             </p>
           </div>
           <nav>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('footer.quickLinks')}</h3>
             <ul className="space-y-2">
               {quickLinks.map((item) => (
                 <li key={item}>
                   <a 
-                    href={`#${item.toLowerCase()}`} 
+                    href={`#${item}`} 
                     className="text-gray-400 hover:text-white transition-colors duration-300"
-                    aria-label={`Go to ${item}`}
+                    aria-label={t(`footer.aria.${item}`)}
                   >
-                    {item}
+                    {t(`navbar.${item}`)}
                   </a>
                 </li>
               ))}
             </ul>
           </nav>
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('footer.contactUs')}</h3>
             <address className="text-gray-400 not-italic">
-              <p>123 AI Street, Tech City, 12345</p>
-              <p>Phone: (123) 456-7890</p>
-              <p>Email: <a href="mailto:info@neuranova.com" className="hover:text-white transition-colors duration-300">info@neuranova.com</a></p>
+              <p>{t('footer.address')}</p>
+              <p>{t('footer.phone')}</p>
+              <p>{t('footer.email')}: <a href="mailto:info@neuranova.com" className="hover:text-white transition-colors duration-300">info@neuranova.com</a></p>
             </address>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('footer.followUs')}</h3>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
                 <a
@@ -56,7 +58,7 @@ const Footer: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-white transition-colors duration-300"
-                  aria-label={`Follow us on ${social.name}`}
+                  aria-label={t('footer.aria.followOn', { social: social.name })}
                 >
                   <social.icon className="w-6 h-6" />
                 </a>
@@ -65,7 +67,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 dark:text-gray-300">
-          <p>&copy; {currentYear} NeuraNova. All rights reserved.</p>
+          <p>{t('footer.copyright', { year: currentYear })}</p>
         </div>
       </div>
     </footer>

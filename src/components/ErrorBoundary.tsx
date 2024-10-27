@@ -1,6 +1,7 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-interface Props {
+interface Props extends WithTranslation {
   children: ReactNode;
 }
 
@@ -22,12 +23,14 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   public render() {
+    const { t } = this.props;
+
     if (this.state.hasError) {
-      return <h1>Sorry.. there was an error</h1>;
+      return <h1>{t('errorBoundary.errorMessage')}</h1>;
     }
 
     return this.props.children;
   }
 }
 
-export default ErrorBoundary;
+export default withTranslation()(ErrorBoundary);

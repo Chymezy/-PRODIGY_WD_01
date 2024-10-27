@@ -3,7 +3,8 @@
     "home": "Home",
     "about": "About",
     "services": "Services",
-    "contact": "Contact"
+    "contact": "Contact",
+    "faq": "FAQ"
   },
   "hero": {
     "title": "Unlock the Power of AI with NeuraNova",
@@ -25,5 +26,31 @@
       "title": "Scale Faster",
       "description": "Grow your business 5x faster with data-driven strategies"
     }
+  },
+  "footer": {
+    "about": "About NeuraNova",
+    "description": "NeuraNova is a leading provider of AI-powered analytics solutions, helping businesses make data-driven decisions and achieve exponential growth.",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "address": "123 AI Street, Tech City, 12345",
+    "phone": "Phone: (123) 456-7890",
+    "email": "Email",
+    "followUs": "Follow Us",
+    "copyright": "© {year} NeuraNova. All rights reserved.",
+    "aria": {
+      "home": "Go to Home",
+      "about": "Go to About",
+      "services": "Go to Services",
+      "contact": "Go to Contact",
+      "faq": "Go to FAQ",
+      "followOn": "Follow us on {social}"
+    }
+  },
+  "errorBoundary": {
+    "errorMessage": "Sorry.. there was an error"
+  },
+  "backToTop": {
+    "text": "↑",
+    "ariaLabel": "Back to top"
   }
 }
