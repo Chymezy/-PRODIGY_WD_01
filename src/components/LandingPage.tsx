@@ -1,7 +1,7 @@
 import React, { useEffect, useState, memo } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation } from 'react-i18next';
 import Footer from './Footer';
 import LazyImage from './LazyImage';
 import ErrorBoundary from './ErrorBoundary';

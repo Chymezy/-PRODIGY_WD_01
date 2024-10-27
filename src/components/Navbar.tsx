@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
           <div className="text-2xl font-bold">
             <a href="/" className={`transition-colors duration-300 ${scrolled ? 'text-purple-600 dark:text-purple-400' : 'text-white'}`}>NeuraNova</a>
           </div>
-          <div className="flex items-center space-x-8">
+          <div className="flex items-center space-x-4">
             <div className="hidden md:flex space-x-8">
               {['home', 'about', 'services', 'contact'].map((item) => (
                 <a
@@ -71,7 +71,7 @@ const Navbar: React.FC = () => {
             </div>
             <button
               onClick={toggleDarkMode}
-              className="p-1 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-300"
+              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-300"
               aria-label="Toggle dark mode"
             >
               <motion.div
@@ -85,15 +85,11 @@ const Navbar: React.FC = () => {
                 )}
               </motion.div>
             </button>
-            <div className="md:hidden">
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`text-3xl focus:outline-none ${scrolled ? 'text-gray-800 dark:text-gray-200' : 'text-white'}`}
-              >
-                ☰
-              </button>
-            </div>
-            <select onChange={(e) => changeLanguage(e.target.value)} className="bg-transparent">
+            <select 
+              onChange={(e) => changeLanguage(e.target.value)}
+              className="bg-transparent border-none focus:outline-none"
+              value={i18n.language}
+            >
               <option value="en">EN</option>
               <option value="es">ES</option>
             </select>
