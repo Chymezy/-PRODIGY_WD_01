@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="text-2xl font-bold">
-            <a href="/" className={`transition-colors duration-300 ${scrolled ? 'text-purple-600 dark:text-purple-400' : 'text-white'}`}>InsightAI</a>
+            <a href="/" className={`transition-colors duration-300 ${scrolled ? 'text-purple-600 dark:text-purple-400' : 'text-white'}`}>NeuraNova</a>
           </div>
           <div className="flex items-center space-x-8">
             <div className="hidden md:flex space-x-8">

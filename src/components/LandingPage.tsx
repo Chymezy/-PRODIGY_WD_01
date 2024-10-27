@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import Footer from './Footer';
 import LazyImage from './LazyImage';
 import applicationBg from '../assets/application-bg.jpg'; // Import the image
+import revolutionizeImage from '../assets/revolutionize-business.webp'; // Import the image
 
 const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -99,7 +100,7 @@ const LandingPage: React.FC = () => {
           animate="visible"
           variants={fadeIn}
         >
-          <h1 className="text-5xl font-bold mb-4">Unlock the Power of AI with InsightAI</h1>
+          <h1 className="text-5xl font-bold mb-4">Unlock the Power of AI with NeuraNova</h1>
           <p className="text-xl mb-8">Transform your business with AI-powered analytics that deliver 10x ROI</p>
           <motion.button 
             className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors duration-300 shadow-lg"
@@ -114,7 +115,7 @@ const LandingPage: React.FC = () => {
       
       <section id="about" className="py-20 bg-gray-50 dark:bg-gray-800">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold mb-8 text-center text-gray-800 dark:text-white">Why Choose InsightAI?</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center text-gray-800 dark:text-white">Why Choose NeuraNova?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="text-center">
               <div className="text-5xl mb-4 text-purple-600 dark:text-purple-400">📈</div>
@@ -159,7 +160,7 @@ const LandingPage: React.FC = () => {
           <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">What Our Clients Say</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
-              <p className="text-gray-600 dark:text-gray-300 mb-4">"InsightAI transformed our business. We've seen a 50% increase in customer retention and a 40% boost in sales."</p>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">"NeuraNova transformed our business. We've seen a 50% increase in customer retention and a 40% boost in sales."</p>
               <p className="font-semibold text-gray-800 dark:text-white">- John Doe, CEO of TechCorp</p>
             </div>
             <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
@@ -171,13 +172,26 @@ const LandingPage: React.FC = () => {
       </section>
       
       <section id="contact" className="py-20 bg-gradient-to-r from-purple-600 to-indigo-800 text-white">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold mb-8">Ready to Revolutionize Your Business?</h2>
-          <p className="text-xl mb-8">Join the AI revolution and stay ahead of your competition. Contact us now!</p>
-          <button className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors duration-300 shadow-lg">
-            Schedule Your Free Consultation
-          </button>
-          <p className="mt-4">Or reach us at: <a href="mailto:info@insightai.com" className="underline">info@insightai.com</a></p>
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="w-full md:w-1/2 flex flex-col justify-center mb-8 md:mb-0">
+              <h2 className="text-4xl font-bold mb-8">Ready to Revolutionize Your Business?</h2>
+              <p className="text-xl mb-8">Join the AI revolution and stay ahead of your competition. Contact us now!</p>
+              <button className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors duration-300 shadow-lg self-start">
+                Schedule Your Free Consultation
+              </button>
+              <p className="mt-4">Or reach us at: <a href="mailto:info@neuranova.com" className="underline">info@neuranova.com</a></p>
+            </div>
+            <div className="w-full md:w-1/2 md:pl-8 flex justify-center items-center">
+              <div className="w-full" style={{ maxWidth: '300px' }}>
+                <img 
+                  src={revolutionizeImage} 
+                  alt="Revolutionize Your Business with AI" 
+                  className="w-full h-auto object-contain rounded-lg shadow-xl"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       
@@ -221,11 +235,11 @@ const LandingPage: React.FC = () => {
               answer="AI-powered analytics uses artificial intelligence and machine learning algorithms to analyze large datasets, identify patterns, and generate insights that would be difficult or impossible for humans to discover on their own."
             />
             <FAQItem 
-              question="How can InsightAI benefit my business?" 
-              answer="InsightAI can help your business make data-driven decisions, predict future trends, optimize operations, and gain a competitive edge in your industry."
+              question="How can NeuraNova benefit my business?" 
+              answer="NeuraNova can help your business make data-driven decisions, predict future trends, optimize operations, and gain a competitive edge in your industry."
             />
             <FAQItem 
-              question="Is my data safe with InsightAI?" 
+              question="Is my data safe with NeuraNova?" 
               answer="Yes, we take data security very seriously. We use state-of-the-art encryption and security measures to protect your data, and we comply with all relevant data protection regulations."
             />
           </div>
@@ -234,7 +248,7 @@ const LandingPage: React.FC = () => {
       
       <section id="newsletter" className="py-20 bg-gray-100 dark:bg-gray-800">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">Stay Updated with InsightAI</h2>
+          <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">Stay Updated with NeuraNova</h2>
           <p className="text-gray-600 dark:text-gray-300 mb-8">Subscribe to our newsletter for the latest AI insights and updates.</p>
           <NewsletterSignup />
         </div>
