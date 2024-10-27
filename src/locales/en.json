@@ -1,0 +1,29 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Unlock the Power of AI with NeuraNova",
+    "subtitle": "Transform your business with AI-powered analytics that deliver 10x ROI",
+    "cta": "Get Your Free AI Consultation",
+    "offer": "Limited time offer: First 50 sign-ups get a personalized AI strategy session"
+  },
+  "about": {
+    "title": "Why Choose NeuraNova?",
+    "boostRevenue": {
+      "title": "Boost Revenue",
+      "description": "Our clients see an average 35% increase in revenue within 6 months"
+    },
+    "saveTime": {
+      "title": "Save Time",
+      "description": "Reduce decision-making time by 70% with our AI-powered insights"
+    },
+    "scaleFaster": {
+      "title": "Scale Faster",
+      "description": "Grow your business 5x faster with data-driven strategies"
+    }
+  }
+}

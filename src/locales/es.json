@@ -1,0 +1,29 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "services": "Servicios",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "title": "Desbloquea el Poder de la IA con NeuraNova",
+    "subtitle": "Transforma tu negocio con análisis impulsados por IA que ofrecen un ROI 10 veces mayor",
+    "cta": "Obtén Tu Consulta de IA Gratuita",
+    "offer": "Oferta por tiempo limitado: Las primeras 50 inscripciones obtienen una sesión de estrategia de IA personalizada"
+  },
+  "about": {
+    "title": "¿Por Qué Elegir NeuraNova?",
+    "boostRevenue": {
+      "title": "Aumenta los Ingresos",
+      "description": "Nuestros clientes ven un aumento promedio del 35% en los ingresos en 6 meses"
+    },
+    "saveTime": {
+      "title": "Ahorra Tiempo",
+      "description": "Reduce el tiempo de toma de decisiones en un 70% con nuestros insights impulsados por IA"
+    },
+    "scaleFaster": {
+      "title": "Escala Más Rápido",
+      "description": "Haz crecer tu negocio 5 veces más rápido con estrategias basadas en datos"
+    }
+  }
+}

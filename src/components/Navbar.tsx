@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useDarkMode } from '../contexts/DarkModeContext';
 import { HiSun, HiMoon } from 'react-icons/hi';
+import { useTranslation } from 'react-i18next';
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { darkMode, toggleDarkMode } = useDarkMode();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,6 +41,10 @@ const Navbar: React.FC = () => {
     setMobileMenuOpen(false);
   };
 
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       scrolled ? 'bg-white dark:bg-gray-800 shadow-lg' : 'bg-black bg-opacity-30'
@@ -50,16 +56,16 @@ const Navbar: React.FC = () => {
           </div>
           <div className="flex items-center space-x-8">
             <div className="hidden md:flex space-x-8">
-              {['Home', 'About', 'Services', 'Contact'].map((item) => (
+              {['home', 'about', 'services', 'contact'].map((item) => (
                 <a
                   key={item}
-                  href={`#${item.toLowerCase()}`}
-                  onClick={(e) => handleNavClick(e, item.toLowerCase())}
+                  href={`#${item}`}
+                  onClick={(e) => handleNavClick(e, item)}
                   className={`hover:text-purple-400 transition-colors duration-300 ${
                     scrolled ? 'text-gray-800 dark:text-gray-200' : 'text-white'
                   }`}
                 >
-                  {item}
+                  {t(`navbar.${item}`)}
                 </a>
               ))}
             </div>
@@ -87,19 +93,23 @@ const Navbar: React.FC = () => {
                 ☰
               </button>
             </div>
+            <select onChange={(e) => changeLanguage(e.target.value)} className="bg-transparent">
+              <option value="en">EN</option>
+              <option value="es">ES</option>
+            </select>
           </div>
         </div>
       </div>
       {mobileMenuOpen && (
         <div className="md:hidden bg-white dark:bg-gray-800">
-          {['Home', 'About', 'Services', 'Contact'].map((item) => (
+          {['home', 'about', 'services', 'contact'].map((item) => (
             <a
               key={item}
-              href={`#${item.toLowerCase()}`}
-              onClick={(e) => handleNavClick(e, item.toLowerCase())}
+              href={`#${item}`}
+              onClick={(e) => handleNavClick(e, item)}
               className="block py-2 px-4 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
             >
-              {item}
+              {t(`navbar.${item}`)}
             </a>
           ))}
         </div>
