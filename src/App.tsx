@@ -18,6 +18,7 @@ const App: React.FC = () => {
           </main>
         </ErrorBoundary>
         <Footer />
+        <BackToTop />
       </div>
     </DarkModeProvider>
   )

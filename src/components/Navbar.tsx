@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useDarkMode } from '../contexts/DarkModeContext';
-import { FiSun, FiMoon } from 'react-icons/fi';
+import { HiSun, HiMoon } from 'react-icons/hi';
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
             </div>
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-300"
+              className="p-1 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-300"
               aria-label="Toggle dark mode"
             >
               <motion.div
@@ -73,9 +73,9 @@ const Navbar: React.FC = () => {
                 transition={{ duration: 0.5 }}
               >
                 {darkMode ? (
-                  <FiMoon className="w-6 h-6 text-purple-400" />
+                  <HiMoon className="w-5 h-5 text-purple-400" />
                 ) : (
-                  <FiSun className="w-6 h-6 text-yellow-500" />
+                  <HiSun className="w-5 h-5 text-yellow-500" />
                 )}
               </motion.div>
             </button>
