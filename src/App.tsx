@@ -12,11 +12,11 @@ const App: React.FC = () => {
     <DarkModeProvider>
       <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-white transition-colors duration-300">
         <Navbar />
-        <main className="flex-grow">
-          <ErrorBoundary>
+        <ErrorBoundary>
+          <main className="flex-grow">
             <LandingPage />
-          </ErrorBoundary>
-        </main>
+          </main>
+        </ErrorBoundary>
         <Footer />
       </div>
     </DarkModeProvider>

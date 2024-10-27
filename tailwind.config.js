@@ -17,6 +17,10 @@ export default {
         indigo: {
           800: '#3730A3',
         },
+        gray: {
+          800: '#1F2937',
+          900: '#111827',
+        },
       },
       transition: {
         colors: 'color 0.3s ease',
