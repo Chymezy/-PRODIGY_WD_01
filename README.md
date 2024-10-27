@@ -16,6 +16,7 @@ This project was completed as part of my internship at Prodigy Info Tech, where 
 - Focused on accessibility and performance optimization
 
 ## Features
+![NeuraPulse Landing Page Screenshot](./public/revolutionize.png)
 
 - Responsive design that works on desktop and mobile devices
 - Interactive navigation menu with smooth scrolling
