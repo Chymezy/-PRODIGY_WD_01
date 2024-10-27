@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { withTranslation } from '../hoc/withTranslation';
+import { t } from '../utils/translate';
 
 const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -132,16 +133,16 @@ const LandingPage: React.FC = () => {
             animate="visible"
             variants={fadeIn}
           >
-            <h1 className="text-5xl font-bold mb-4">{t('hero.title')}</h1>
-            <p className="text-xl mb-8">{t('hero.subtitle')}</p>
+            <h1 className="text-5xl font-bold mb-4">{t('hero.title', 'Unlock the Power of AI with NeuraNova')}</h1>
+            <p className="text-xl mb-8">{t('hero.subtitle', 'Transform your business with AI-powered analytics that deliver 10x ROI')}</p>
             <motion.button 
               className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors duration-300 shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {t('hero.cta')}
+              {t('hero.cta', 'Get Your Free AI Consultation')}
             </motion.button>
-            <p className="mt-4 text-sm">{t('hero.offer')}</p>
+            <p className="mt-4 text-sm">{t('hero.offer', 'Limited time offer: First 50 sign-ups get a personalized AI strategy session')}</p>
           </motion.div>
         </section>
       </ErrorBoundary>
