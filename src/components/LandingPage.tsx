@@ -182,7 +182,7 @@ const LandingPage: React.FC = () => {
           id="home" 
           className="relative bg-gradient-to-r from-purple-700 to-indigo-800 text-white py-32 overflow-hidden"
           role="region"
-          aria-label={t('accessibility.heroSection', 'Welcome to NeuraPulse')}
+          aria-labelledby="hero-heading"
         >
           <div className="absolute inset-0 z-0">
             <img
@@ -199,7 +199,7 @@ const LandingPage: React.FC = () => {
             animate="visible"
             variants={fadeIn}
           >
-            <h1 className="text-5xl font-bold mb-4">{t('hero.title')}</h1>
+            <h1 id="hero-heading" className="text-5xl font-bold mb-4">{t('hero.title')}</h1>
             <p className="text-xl mb-8">{t('hero.subtitle')}</p>
             <motion.button 
               className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors duration-300 shadow-lg"
@@ -217,14 +217,12 @@ const LandingPage: React.FC = () => {
       <ErrorBoundary>
         <section 
           id="about" 
-          className={`py-20 ${accessibleColors.background.secondary.light} ${accessibleColors.background.secondary.dark}`}
+          className="py-20 bg-gray-50 dark:bg-gray-800"
           role="region"
           aria-labelledby="about-heading"
         >
           <div className="container mx-auto px-6">
-            <h2 id="about-heading" className={`text-3xl font-bold mb-8 text-center ${accessibleColors.text.primary.light} ${accessibleColors.text.primary.dark}`}>
-              {t('about.title')}
-            </h2>
+            <h2 id="about-heading" className="text-3xl font-bold mb-8 text-center">{t('about.title')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8" role="list">
               {['boostRevenue', 'saveTime', 'scaleFaster'].map((item) => (
                 <div 
@@ -248,14 +246,12 @@ const LandingPage: React.FC = () => {
       <ErrorBoundary>
         <section 
           id="services" 
-          className={`py-20 ${accessibleColors.background.primary.light} ${accessibleColors.background.primary.dark}`}
+          className="py-20 bg-white dark:bg-gray-900"
           role="region"
           aria-labelledby="services-heading"
         >
           <div className="container mx-auto px-6">
-            <h2 id="services-heading" className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              {t('services.title')}
-            </h2>
+            <h2 id="services-heading" className="text-4xl font-bold mb-12 text-center">{t('services.title')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8" role="list">
               {['predictiveAnalytics', 'nlp', 'computerVision'].map((service) => (
                 <div 
@@ -286,9 +282,7 @@ const LandingPage: React.FC = () => {
           aria-labelledby="testimonials-heading"
         >
           <div className="container mx-auto px-6">
-            <h2 id="testimonials-heading" className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              {t('testimonials.title')}
-            </h2>
+            <h2 id="testimonials-heading" className="text-4xl font-bold mb-12 text-center">{t('testimonials.title')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12" role="list">
               {['client1', 'client2'].map((client) => (
                 <div 
@@ -379,9 +373,14 @@ const LandingPage: React.FC = () => {
 
       {/* FAQ Section */}
       <ErrorBoundary>
-        <section id="faq" className="py-20 bg-white dark:bg-gray-900">
+        <section 
+          id="faq" 
+          className="py-20 bg-white dark:bg-gray-900"
+          role="region"
+          aria-labelledby="faq-heading"
+        >
           <div className="container mx-auto px-6">
-            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">{t('faq.heading', 'Frequently Asked Questions')}</h2>
+            <h2 id="faq-heading" className="text-4xl font-bold mb-12 text-center">{t('faq.heading')}</h2>
             <div className="max-w-3xl mx-auto">
               <MemoizedFAQItem 
                 question={t('faq.questions.analytics')}
@@ -409,9 +408,7 @@ const LandingPage: React.FC = () => {
           aria-labelledby="newsletter-heading"
         >
           <div className="container mx-auto px-6 text-center">
-            <h2 id="newsletter-heading" className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">
-              {t('newsletter.title')}
-            </h2>
+            <h2 id="newsletter-heading" className="text-3xl font-bold mb-4">{t('newsletter.title')}</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-8">{t('newsletter.description')}</p>
             <MemoizedNewsletterSignup onSubmit={(email) => {
               console.log(`Submitted email: ${email}`);
