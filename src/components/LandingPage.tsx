@@ -5,6 +5,7 @@ import { useTranslation } from '../hooks/useTranslation';
 import Footer from './Footer';
 import LazyImage from './LazyImage';
 import ErrorBoundary from './ErrorBoundary';
+import { accessibleColors } from '../utils/accessibilityUtils';
 import applicationBg from '../assets/application-bg.jpg';
 import revolutionizeImage from '../assets/revolutionize-business.webp';
 import { logEvent } from '../services/analytics';
@@ -184,13 +185,14 @@ const LandingPage: React.FC = () => {
           aria-label={t('accessibility.heroSection', 'Welcome to NeuraPulse')}
         >
           <div className="absolute inset-0 z-0">
-            <LazyImage
+            <img
               src={applicationBg}
-              alt=""  // Decorative image
-              className="object-cover w-full h-full opacity-30"
+              alt=""
+              className="w-full h-full object-cover opacity-30"
               aria-hidden="true"
             />
           </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-700/50 to-indigo-800/50 z-1"></div>
           <motion.div 
             className="container mx-auto px-6 text-center relative z-10"
             initial="hidden"
@@ -215,12 +217,12 @@ const LandingPage: React.FC = () => {
       <ErrorBoundary>
         <section 
           id="about" 
-          className="py-20 bg-gray-50 dark:bg-gray-800"
+          className={`py-20 ${accessibleColors.background.secondary.light} ${accessibleColors.background.secondary.dark}`}
           role="region"
           aria-labelledby="about-heading"
         >
           <div className="container mx-auto px-6">
-            <h2 id="about-heading" className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-white">
+            <h2 id="about-heading" className={`text-3xl font-bold mb-8 text-center ${accessibleColors.text.primary.light} ${accessibleColors.text.primary.dark}`}>
               {t('about.title')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8" role="list">
@@ -246,7 +248,7 @@ const LandingPage: React.FC = () => {
       <ErrorBoundary>
         <section 
           id="services" 
-          className="py-20 bg-white dark:bg-gray-900"
+          className={`py-20 ${accessibleColors.background.primary.light} ${accessibleColors.background.primary.dark}`}
           role="region"
           aria-labelledby="services-heading"
         >

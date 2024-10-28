@@ -1,5 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { accessibleColors } from '../utils/accessibilityUtils';
 
 interface Props {
   children: ReactNode;
@@ -8,11 +9,6 @@ interface Props {
 interface State {
   hasError: boolean;
 }
-
-const ErrorFallback: React.FC = () => {
-  const { t } = useTranslation();
-  return <h1>{t('errorBoundary.errorMessage')}</h1>;
-};
 
 class ErrorBoundary extends Component<Props, State> {
   public state: State = {
@@ -29,7 +25,16 @@ class ErrorBoundary extends Component<Props, State> {
 
   public render() {
     if (this.state.hasError) {
-      return <ErrorFallback />;
+      return (
+        <div className="p-8 text-center">
+          <h2 className={`text-2xl font-bold mb-4 ${accessibleColors.text.primary.light} ${accessibleColors.text.primary.dark}`}>
+            Something went wrong
+          </h2>
+          <p className={`${accessibleColors.text.secondary.light} ${accessibleColors.text.secondary.dark}`}>
+            Please try refreshing the page or contact support if the problem persists.
+          </p>
+        </div>
+      );
     }
 
     return this.props.children;

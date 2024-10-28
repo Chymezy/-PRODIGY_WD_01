@@ -1,28 +1,35 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, CSSProperties } from 'react';
 
 interface LazyImageProps {
   src: string;
   alt: string;
   className?: string;
-  sizes?: string;
-  srcSet?: string;
+  style?: CSSProperties;
+  'aria-hidden'?: boolean | 'true' | 'false';
 }
 
-const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className, sizes, srcSet }) => {
+const LazyImage: React.FC<LazyImageProps> = ({ 
+  src, 
+  alt, 
+  className = '', 
+  style,
+  'aria-hidden': ariaHidden 
+}) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsLoaded(true);
+          setIsInView(true);
           observer.unobserve(entry.target);
         }
       },
       {
-        rootMargin: '100px',
-        threshold: 0.1
+        rootMargin: '50px',
+        threshold: 0.01
       }
     );
 
@@ -38,14 +45,24 @@ const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className, sizes, srcSe
   }, []);
 
   return (
-    <img
-      ref={imgRef}
-      src={isLoaded ? src : ''}
-      srcSet={isLoaded ? srcSet : ''}
-      sizes={sizes}
-      alt={alt}
-      className={`transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${className}`}
-    />
+    <div className="relative overflow-hidden" ref={imgRef}>
+      {isInView && (
+        <img
+          src={src}
+          alt={alt}
+          className={`transition-opacity duration-300 ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          } ${className}`}
+          style={style}
+          aria-hidden={ariaHidden}
+          onLoad={() => setIsLoaded(true)}
+          loading="lazy"
+        />
+      )}
+      {!isLoaded && isInView && (
+        <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 animate-pulse" />
+      )}
+    </div>
   );
 };
 
