@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
           </div>
           
           {/* Quick Links Navigation - Updated with more specific label */}
-          <nav aria-label="Footer secondary navigation">
+          <nav aria-label="Site quick links">
             <h2 className="text-lg font-semibold mb-4 text-white" id="footer-quick-links">
               {t('footer.quickLinks')}
             </h2>

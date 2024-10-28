@@ -52,15 +52,19 @@ const Navbar: React.FC = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-white dark:bg-gray-800 shadow-lg' : 'bg-black bg-opacity-30'
       }`}
-      aria-label="Main navigation"
+      aria-label="Site navigation"
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="text-2xl font-bold">
-            <a href="/" className={`transition-colors duration-300 ${
-              scrolled ? `${accessibleColors.text.accent.light} ${accessibleColors.text.accent.dark}` 
-              : 'text-white'
-            }`}>
+            <a 
+              href="/" 
+              className={`transition-colors duration-300 ${
+                scrolled 
+                  ? 'text-gray-900 dark:text-white' 
+                  : 'text-gray-100'
+              }`}
+            >
               NeuraPulse
             </a>
           </div>
@@ -71,9 +75,10 @@ const Navbar: React.FC = () => {
                   key={item}
                   href={`#${item}`}
                   onClick={(e) => handleNavClick(e, item)}
-                  className={`hover:text-purple-400 transition-colors duration-300 ${
-                    scrolled ? `${accessibleColors.text.primary.light} ${accessibleColors.text.primary.dark}` 
-                    : 'text-white'
+                  className={`transition-colors duration-300 ${
+                    scrolled 
+                      ? 'text-gray-900 hover:text-purple-800 dark:text-white dark:hover:text-purple-300' 
+                      : 'text-gray-100 hover:text-white'
                   }`}
                 >
                   {t(`navbar.${item}`)}

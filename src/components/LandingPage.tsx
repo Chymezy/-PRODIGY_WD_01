@@ -200,7 +200,7 @@ const LandingPage: React.FC = () => {
           <h1 className="text-5xl font-bold mb-4 text-white">{t('hero.title')}</h1>
           <p className="text-xl mb-8 text-white">{t('hero.subtitle')}</p>
           <motion.button 
-            className="bg-white text-purple-900 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition-colors duration-300 shadow-lg"
+            className="bg-purple-950 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-900 transition-colors duration-300 shadow-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             aria-label={t('accessibility.ctaButton', 'Get started with your free AI consultation')}
