@@ -1,6 +1,6 @@
 import DOMPurify from 'dompurify';
 
-// Frontend input sanitization for display purposes
+// Sanitize user input
 export const sanitizeInput = (input: string): string => {
   return DOMPurify.sanitize(input, {
     ALLOWED_TAGS: [], // Only allow text
@@ -8,10 +8,24 @@ export const sanitizeInput = (input: string): string => {
   });
 };
 
-// Basic frontend email validation
+// Validate email format
 export const validateEmail = (email: string): boolean => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  return emailRegex.test(email) && !/<[^>]*>/.test(email);
+  return emailRegex.test(email) && !/<[^>]*>/.test(email); // Prevent HTML injection
+};
+
+// Encode HTML entities
+export const encodeHTML = (str: string): string => {
+  return str.replace(/[&<>"']/g, (match) => {
+    const entities: { [key: string]: string } = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    };
+    return entities[match];
+  });
 };
 
 export const generateCSRFToken = (): string => {
