@@ -4,12 +4,15 @@ import { useDarkMode } from '../contexts/DarkModeContext';
 import { HiSun, HiMoon } from 'react-icons/hi';
 import { useTranslation } from '../hooks/useTranslation';
 import { accessibleColors } from '../utils/accessibilityUtils';
+import { useAppDispatch, useAppSelector } from '../hooks/useAppRedux';
+import { toggleMenu, setActiveSection } from '../store/slices/uiSlice';
+import { setLanguage } from '../store/slices/userPreferencesSlice';
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { darkMode, toggleDarkMode } = useDarkMode();
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,26 +28,9 @@ const Navbar: React.FC = () => {
     };
   }, [scrolled]);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setMobileMenuOpen(false);
-      // Set focus to the section for accessibility
-      element.focus();
-      element.setAttribute('tabindex', '-1');
-    }
-  };
-
-  // Add skip link for keyboard users
-  const handleSkipToMain = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const mainContent = document.getElementById('main-content');
-    if (mainContent) {
-      mainContent.focus();
-      mainContent.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleNavClick = (section: string) => {
+    dispatch(setActiveSection(section));
+    dispatch(toggleMenu());
   };
 
   return (
@@ -74,7 +60,7 @@ const Navbar: React.FC = () => {
                 <a
                   key={item}
                   href={`#${item}`}
-                  onClick={(e) => handleNavClick(e, item)}
+                  onClick={(e) => handleNavClick(item)}
                   className={`transition-colors duration-300 ${
                     scrolled 
                       ? 'text-gray-900 hover:text-purple-800 dark:text-white dark:hover:text-purple-300' 
