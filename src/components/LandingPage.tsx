@@ -15,34 +15,35 @@ import * as z from 'zod';
 import { withTranslation } from '../hoc/withTranslation';
 import { t } from '../utils/translate';
 
-const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
+const FAQItem: React.FC<{ question: string; answer: string }> = memo(({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-gray-200 py-4">
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg">
       <button
         className="flex justify-between items-center w-full text-left"
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
       >
-        <span className="text-lg font-semibold">{question}</span>
-        <span className="text-2xl">{isOpen ? '−' : '+'}</span>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{question}</h3>
+        <span className="ml-6">{isOpen ? '-' : '+'}</span>
       </button>
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
+            animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="mt-2 text-gray-600"
+            className="mt-2"
           >
-            {answer}
+            <p className="text-gray-600 dark:text-gray-200">{answer}</p>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
   );
-};
+});
 
 const schema = z.object({
   email: z
