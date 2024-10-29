@@ -1,14 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UserPreferencesState {
-  darkMode: boolean;
   language: string;
   fontSize: 'small' | 'medium' | 'large';
   animations: boolean;
 }
 
 const initialState: UserPreferencesState = {
-  darkMode: false,
   language: 'en',
   fontSize: 'medium',
   animations: true,
@@ -18,9 +16,6 @@ const userPreferencesSlice = createSlice({
   name: 'userPreferences',
   initialState,
   reducers: {
-    toggleDarkMode: (state) => {
-      state.darkMode = !state.darkMode;
-    },
     setLanguage: (state, action: PayloadAction<string>) => {
       state.language = action.payload;
     },
@@ -33,5 +28,5 @@ const userPreferencesSlice = createSlice({
   },
 });
 
-export const { toggleDarkMode, setLanguage, setFontSize, toggleAnimations } = userPreferencesSlice.actions;
+export const { setLanguage, setFontSize, toggleAnimations } = userPreferencesSlice.actions;
 export default userPreferencesSlice.reducer;

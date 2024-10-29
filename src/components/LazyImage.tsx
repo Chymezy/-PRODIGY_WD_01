@@ -1,22 +1,30 @@
 import React, { useState, useEffect, useRef, CSSProperties } from 'react';
+import { imageService } from '../services/api/image';
 
 interface LazyImageProps {
   src: string;
   alt: string;
   className?: string;
   style?: CSSProperties;
-  'aria-hidden'?: boolean | 'true' | 'false';
+  width?: number;
+  height?: number;
+  quality?: number;
+  'aria-hidden'?: boolean;
 }
 
-const LazyImage: React.FC<LazyImageProps> = ({ 
-  src, 
-  alt, 
-  className = '', 
+const LazyImage: React.FC<LazyImageProps> = ({
+  src,
+  alt,
+  className = '',
   style,
-  'aria-hidden': ariaHidden 
+  width,
+  height,
+  quality = 75,
+  'aria-hidden': ariaHidden
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
+  const [optimizedSrc, setOptimizedSrc] = useState<string | null>(null);
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
@@ -44,19 +52,47 @@ const LazyImage: React.FC<LazyImageProps> = ({
     };
   }, []);
 
+  useEffect(() => {
+    if (isInView && !optimizedSrc) {
+      const loadOptimizedImage = async () => {
+        try {
+          const response = await imageService.optimize({
+            url: src,
+            width,
+            height,
+            quality,
+            format: 'webp'
+          });
+          
+          if (response.data.url) {
+            await imageService.preload(response.data.url);
+            setOptimizedSrc(response.data.url);
+          }
+        } catch (error) {
+          console.error('Image optimization failed:', error);
+          setOptimizedSrc(src); // Fallback to original source
+        }
+      };
+
+      loadOptimizedImage();
+    }
+  }, [isInView, src, width, height, quality]);
+
   return (
     <div className="relative overflow-hidden" ref={imgRef}>
       {isInView && (
         <img
-          src={src}
+          src={optimizedSrc || src}
           alt={alt}
           className={`transition-opacity duration-300 ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           } ${className}`}
           style={style}
-          aria-hidden={ariaHidden}
           onLoad={() => setIsLoaded(true)}
           loading="lazy"
+          width={width}
+          height={height}
+          aria-hidden={ariaHidden}
         />
       )}
       {!isLoaded && isInView && (

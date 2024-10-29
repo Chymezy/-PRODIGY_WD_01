@@ -2,16 +2,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UIState {
   isMenuOpen: boolean;
-  isLoading: boolean;
   activeSection: string;
   scrollPosition: number;
+  isDarkMode: boolean;
 }
 
 const initialState: UIState = {
   isMenuOpen: false,
-  isLoading: false,
   activeSection: 'home',
   scrollPosition: 0,
+  isDarkMode: false,
 };
 
 const uiSlice = createSlice({
@@ -21,17 +21,17 @@ const uiSlice = createSlice({
     toggleMenu: (state) => {
       state.isMenuOpen = !state.isMenuOpen;
     },
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.isLoading = action.payload;
-    },
     setActiveSection: (state, action: PayloadAction<string>) => {
       state.activeSection = action.payload;
     },
     setScrollPosition: (state, action: PayloadAction<number>) => {
       state.scrollPosition = action.payload;
     },
+    toggleDarkMode: (state) => {
+      state.isDarkMode = !state.isDarkMode;
+    },
   },
 });
 
-export const { toggleMenu, setLoading, setActiveSection, setScrollPosition } = uiSlice.actions;
+export const { toggleMenu, setActiveSection, setScrollPosition, toggleDarkMode } = uiSlice.actions;
 export default uiSlice.reducer;
