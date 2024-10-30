@@ -1,6 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { newsletterService } from '../../services/api/newsletter';
-import { ApiError, NewsletterSubscription } from '../../types/api';
+import { ApiError } from '../../types/api';
+
+// Define response type
+interface NewsletterResponse {
+  success: boolean;
+  message: string;
+}
 
 interface ApiState {
   loading: boolean;
@@ -15,7 +21,7 @@ const initialState: ApiState = {
 };
 
 export const subscribeNewsletter = createAsyncThunk<
-  NewsletterSubscription,
+  NewsletterResponse,
   string,
   { rejectValue: ApiError }
 >(
@@ -25,7 +31,11 @@ export const subscribeNewsletter = createAsyncThunk<
       const response = await newsletterService.subscribe(email);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error as ApiError);
+      return rejectWithValue({
+        message: error instanceof Error ? error.message : 'An unknown error occurred',
+        status: 500,
+        code: 'UNKNOWN_ERROR'
+      });
     }
   }
 );
@@ -52,7 +62,11 @@ const apiSlice = createSlice({
       })
       .addCase(subscribeNewsletter.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || { message: 'An unknown error occurred', status: 500 };
+        state.error = action.payload || {
+          message: 'An unknown error occurred',
+          status: 500,
+          code: 'UNKNOWN_ERROR'
+        };
       });
   },
 });
