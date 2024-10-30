@@ -11,7 +11,7 @@ import { setLanguage } from '../store/slices/userPreferencesSlice';
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const { darkMode, toggleDarkMode } = useDarkMode();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -31,6 +31,10 @@ const Navbar: React.FC = () => {
   const handleNavClick = (section: string) => {
     dispatch(setActiveSection(section));
     dispatch(toggleMenu());
+  };
+
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    i18n.changeLanguage(e.target.value);
   };
 
   return (
@@ -71,6 +75,17 @@ const Navbar: React.FC = () => {
                 </a>
               ))}
             </div>
+            <select
+              onChange={handleLanguageChange}
+              value={i18n.language}
+              className={`bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-purple-600 ${
+                scrolled ? 'text-gray-900 dark:text-white' : 'text-white'
+              }`}
+              aria-label={t('accessibility.languageSelector')}
+            >
+              <option value="en">EN</option>
+              <option value="es">ES</option>
+            </select>
             <button
               onClick={toggleDarkMode}
               className={`p-2 rounded-full ${accessibleColors.button.secondary.base} ${accessibleColors.button.secondary.dark} focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-300`}

@@ -1,0 +1,1066 @@
+NEURAPULSE LANDING PAGE - USER MANUAL
+====================================
+
+1. QUICK START
+-------------
+Prerequisites:
+- Node.js v14+
+- npm/yarn
+- Git
+
+Quick Setup:
+```bash
+git clone [repository-url]
+cd neurapulse-landing
+npm install
+npm run dev
+```
+
+2. CORE COMPONENTS & USAGE
+-------------------------
+A. Navigation & Header
+   ```jsx
+   // Example of adding a new navigation item
+   <Navbar>
+     <NavItem href="#newSection">New Section</NavItem>
+   </Navbar>
+
+   // Add translation for new item
+   // in src/locales/en.json:
+   {
+     "navbar": {
+       "newSection": "New Section"
+     }
+   }
+   ```
+
+B. LazyImage Component
+   ```jsx
+   // Basic usage
+   <LazyImage 
+     src="/path/to/image.jpg"
+     alt="Description"
+     className="w-full h-64"
+   />
+
+   // With loading placeholder
+   <LazyImage
+     src="/path/to/large-image.jpg"
+     alt="Description"
+     className="w-full"
+     placeholder="/path/to/placeholder.jpg"
+   />
+   ```
+
+C. Contact Form Integration
+   ```jsx
+   // Basic form usage
+   <Contact 
+     onSubmit={handleSubmit}
+     successMessage="Custom success message"
+   />
+
+   // With custom styling
+   <Contact 
+     className="bg-custom p-4"
+     buttonClassName="bg-brand"
+   />
+   ```
+
+3. CUSTOMIZATION GUIDE
+---------------------
+A. Theme Customization
+   1. Colors
+      ```js
+      // In tailwind.config.js
+      module.exports = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#your-color',
+              secondary: '#your-color'
+            }
+          }
+        }
+      }
+      ```
+
+   2. Dark Mode
+      ```jsx
+      // Toggle dark mode programmatically
+      const { toggleDarkMode } = useDarkMode();
+      
+      // Apply dark mode styles
+      className="bg-white dark:bg-gray-900"
+      ```
+
+B. Content Updates
+   1. Text Content
+      ```json
+      // In src/locales/en.json
+      {
+        "section": {
+          "title": "Your Title",
+          "description": "Your Description"
+        }
+      }
+      ```
+
+   2. Images
+      - Place images in src/assets
+      - Import and use:
+      ```jsx
+      import myImage from '../assets/my-image.jpg';
+      <LazyImage src={myImage} alt="Description" />
+      ```
+
+4. FORM HANDLING
+---------------
+A. Newsletter Signup
+   ```jsx
+   // Basic implementation
+   <NewsletterSignup 
+     onSubmit={async (email) => {
+       // Handle submission
+     }}
+   />
+
+   // With custom validation
+   <NewsletterSignup 
+     validateEmail={(email) => {
+       // Custom validation logic
+       return true/false;
+     }}
+   />
+   ```
+
+B. Contact Form
+   ```jsx
+   // With file attachment
+   <Contact 
+     allowAttachments={true}
+     maxFileSize={5 * 1024 * 1024} // 5MB
+   />
+   ```
+
+5. ANALYTICS INTEGRATION
+-----------------------
+```jsx
+// Track custom events
+const { trackEvent } = useAnalytics();
+
+// Usage
+trackEvent('button_click', {
+  category: 'user_interaction',
+  label: 'signup_button'
+});
+
+// Page view tracking
+const { trackPageView } = useAnalytics();
+trackPageView('/landing-page');
+```
+
+6. TROUBLESHOOTING GUIDE
+-----------------------
+A. Common Issues & Solutions
+   1. Images not loading
+      - Check path is correct
+      - Verify file exists in assets
+      - Check LazyImage implementation
+
+   2. Forms not submitting
+      - Verify API endpoint
+      - Check network tab
+      - Validate form data
+
+   3. Dark mode not working
+      - Clear browser cache
+      - Check localStorage
+      - Verify context setup
+
+7. PERFORMANCE OPTIMIZATION
+--------------------------
+A. Image Optimization
+   - Use WebP format
+   - Implement proper sizing
+   - Use LazyImage component
+
+B. Code Splitting
+   - Use lazy loading
+   - Implement route-based splitting
+   - Optimize bundle size
+
+8. SECURITY CONSIDERATIONS
+-------------------------
+- Use HTTPS
+- Implement proper form validation
+- Sanitize user inputs
+- Handle errors gracefully
+
+9. MAINTENANCE & UPDATES
+-----------------------
+A. Regular Checks
+   - Run npm audit
+   - Update dependencies
+   - Monitor error logs
+   - Check analytics data
+
+B. Content Updates
+   - Update translations
+   - Refresh images
+   - Update meta tags
+
+Need Help?
+----------
+- GitHub Issues: [repository-url]/issues
+- Documentation: [docs-url]
+- Support Email: support@neurapulse.com13. DETAILED SECURITY FEATURES
+----------------------------
+A. Input Sanitization Deep Dive
+   1. Implementation Details
+      ```typescript
+      // Comprehensive input sanitization
+      export const sanitizeInput = (input: unknown): string => {
+        if (typeof input !== 'string') {
+          return '';
+        }
+
+        return input
+          // Remove script tags
+          .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+          // Encode HTML entities
+          .replace(/[&<>"']/g, char => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#x27;'
+          }[char] || char))
+          // Remove dangerous attributes
+          .replace(/on\w+="[^"]*"/g, '');
+      };
+      ```
+      Why Important:
+      - Prevents XSS attacks
+      - Ensures data integrity
+      - Protects against injection attacks
+      - Maintains user input safety
+
+B. CSRF Protection Context
+   1. How It Works
+      ```typescript
+      // CSRF protection implementation
+      const csrfProtection = {
+        // Get token from meta tag (set by server)
+        getToken: () => document.querySelector('meta[name="csrf-token"]')
+          ?.getAttribute('content'),
+
+        // Add token to requests
+        addTokenToRequest: (config: RequestConfig) => {
+          const token = csrfProtection.getToken();
+          if (token) {
+            config.headers['X-CSRF-Token'] = token;
+          }
+          return config;
+        },
+
+        // Validate token in responses
+        validateToken: (response: Response) => {
+          const newToken = response.headers.get('x-csrf-token');
+          if (newToken) {
+            updateCsrfToken(newToken);
+          }
+        }
+      };
+      ```
+      Context:
+      - Works with server-side CSRF protection
+      - Prevents cross-site request forgery
+      - Ensures request authenticity
+      - Maintains session security
+
+10. COMPONENT IMPORTANCE & ROLES
+------------------------------
+A. Core Components
+   1. LazyImage
+      - Critical for performance optimization
+      - Reduces initial page load time
+      - Prevents layout shifts during image loading
+      - Improves Core Web Vitals scores
+
+   2. ErrorBoundary
+      - Prevents entire app crashes
+      - Provides graceful error handling
+      - Improves user experience during errors
+      - Enables error reporting and monitoring
+
+   3. Analytics Component
+      - Tracks user behavior
+      - Provides business insights
+      - Helps in conversion optimization
+      - Enables data-driven decisions
+
+   4. Contact Form
+      - Primary conversion point
+      - Handles user inquiries
+      - Validates user inputs
+      - Provides feedback mechanisms
+
+B. Service Components
+   1. API Service
+      - Centralizes API communications
+      - Handles request/response lifecycle
+      - Manages error handling
+      - Implements retry logic
+
+   2. Analytics Service
+      - Tracks user interactions
+      - Manages event logging
+      - Handles analytics failures
+      - Provides tracking utilities
+
+11. SECURITY IMPLEMENTATIONS
+--------------------------
+A. Frontend Security Measures
+   1. Form Security
+      - Input sanitization
+      - XSS prevention
+      - CSRF protection
+      - Rate limiting
+      Why: Prevents malicious data injection and protects user data
+
+   2. API Security
+      - Secure cookie handling
+      - Request/Response sanitization
+      - Error message sanitization
+      - Proper CORS configuration
+      Why: Protects against data breaches and unauthorized access
+
+   3. Authentication Flow
+      - Secure token handling
+      - HTTP-only cookies
+      - Automatic token refresh
+      - Session management
+      Why: Ensures secure user sessions and prevents token theft
+
+   4. Data Protection
+      - Client-side encryption
+      - Secure storage handling
+      - Sensitive data masking
+      - Memory cleanup
+      Why: Protects user data and prevents data leaks
+
+B. Security Best Practices
+   1. Content Security
+      - Strict CSP implementation
+      - Trusted content sources
+      - Resource integrity checks
+      - Frame protection
+      Why: Prevents XSS and other injection attacks
+
+   2. Error Handling
+      - Generic error messages
+      - Error logging
+      - Security event tracking
+      - Graceful degradation
+      Why: Prevents information leakage and improves security monitoring
+
+   3. Input/Output Security
+      - Data validation
+      - Output encoding
+      - File upload restrictions
+      - Content type validation
+      Why: Prevents injection attacks and ensures data integrity
+
+C. Security Monitoring
+   1. Runtime Checks
+      - DOM manipulation monitoring
+      - Script injection detection
+      - Event listener monitoring
+      - Resource loading checks
+      Why: Detects and prevents runtime attacks
+
+   2. Performance Security
+      - Resource timing protection
+      - CPU usage monitoring
+      - Memory leak prevention
+      - Network request monitoring
+      Why: Prevents DOS attacks and resource exhaustion
+
+Note: These security measures are frontend-specific and work in conjunction with backend security. They provide a first line of defense but should not be relied upon as the sole security mechanism.
+
+
+12. IMPLEMENTATION DETAILS
+------------------------
+A. Component Implementation Examples
+   1. LazyImage Implementation
+      ```typescript
+      // Example of LazyImage with all security features
+      <LazyImage
+        src={sanitizedImageUrl}
+        alt={sanitizedAltText}
+        onError={handleImageError}
+        className="w-full"
+        loading="lazy"
+        crossOrigin="anonymous"
+        securityHeaders={{
+          'Content-Security-Policy': 'img-src https:',
+          'X-Content-Type-Options': 'nosniff'
+        }}
+      />
+      ```
+
+   2. Form Security Implementation
+      ```typescript
+      // Newsletter signup with security measures
+      const NewsletterSignup: React.FC = () => {
+        const handleSubmit = async (email: string) => {
+          // Input sanitization
+          const sanitizedEmail = sanitizeInput(email);
+          
+          // Rate limiting check
+          if (!checkRateLimit('newsletter', 5)) {
+            return handleError('Too many attempts');
+          }
+
+          try {
+            await submitNewsletter(sanitizedEmail);
+          } catch (error) {
+            handleSecureError(error);
+          }
+        };
+      };
+      ```
+
+B. Security Service Usage
+   1. API Service Implementation
+      ```typescript
+      // Secure API call example
+      const apiCall = async <T>(endpoint: string, data?: unknown): Promise<T> => {
+        try {
+          // Request sanitization
+          const sanitizedData = sanitizeRequest(data);
+          
+          // Add security headers
+          const secureHeaders = {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': getCsrfToken(),
+          };
+
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            credentials: 'include', // For secure cookies
+            headers: secureHeaders,
+            body: JSON.stringify(sanitizedData)
+          });
+
+          // Response validation
+          validateResponse(response);
+
+          return await response.json();
+        } catch (error) {
+          handleSecureError(error);
+          throw error;
+        }
+      };
+      ```
+
+   2. Analytics Security
+      ```typescript
+      // Secure analytics tracking
+      const trackSecureEvent = async (eventName: string, data: unknown) => {
+        // Sanitize tracking data
+        const safeData = sanitizeTrackingData(data);
+        
+        // Remove sensitive information
+        const cleanData = removeSensitiveInfo(safeData);
+
+        // Rate limit check
+        if (checkTrackingRateLimit()) {
+          await analyticsService.trackEvent(eventName, cleanData);
+        }
+      };
+      ```
+
+C. Error Handling Implementation
+   ```typescript
+   // Secure error boundary implementation
+   class SecureErrorBoundary extends React.Component {
+     componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+       // Sanitize error information
+       const safeError = sanitizeErrorInfo(error);
+       
+       // Log securely
+       secureLogger.error({
+         error: safeError,
+         timestamp: new Date().toISOString(),
+         component: this.constructor.name
+       });
+
+       // Show safe error message
+       this.setState({
+         error: getGenericErrorMessage()
+       });
+     }
+   }
+   ```
+
+D. Data Protection Implementation
+   ```typescript
+   // Sensitive data handling
+   const handleSensitiveData = (data: SensitiveData) => {
+     // Encrypt sensitive data
+     const encrypted = encryptData(data);
+     
+     // Clear original data
+     clearSensitiveData(data);
+
+     // Store safely
+     secureStorage.set('protected-data', encrypted);
+
+     // Set auto-cleanup
+     setTimeout(() => {
+       secureStorage.remove('protected-data');
+     }, SESSION_TIMEOUT);
+   };
+   ```
+
+E. Security Monitoring Implementation
+   ```typescript
+   // Runtime security monitoring
+   const SecurityMonitor = () => {
+     useEffect(() => {
+       // Monitor DOM mutations
+       const observer = new MutationObserver((mutations) => {
+         mutations.forEach(checkSecurityViolation);
+       });
+
+       // Monitor script injection
+       document.addEventListener('securitypolicyviolation', handleViolation);
+
+       // Resource loading monitor
+       performance.addEventListener('resourcetimingbufferfull', handleResourceLimit);
+
+       return () => {
+         observer.disconnect();
+         // Cleanup listeners
+       };
+     }, []);
+   };
+   ```
+
+F. Content Security Implementation
+   ```typescript
+   // Content security setup
+   const setupSecurityPolicies = () => {
+     // CSP setup
+     const csp = {
+       'default-src': ["'self'"],
+       'script-src': ["'self'", "'wasm-unsafe-eval'"],
+       'style-src': ["'self'", "'unsafe-inline'"],
+       'img-src': ["'self'", 'data:', 'https:'],
+       'connect-src': ["'self'", API_ENDPOINTS]
+     };
+
+     // Apply security headers
+     applySecurityHeaders(csp);
+   };
+   ```
+
+These implementations show how security measures are integrated into the actual components and services. Each implementation includes error handling, data sanitization, and proper security checks.
+
+
+13. DETAILED SECURITY FEATURES
+----------------------------
+A. Input Sanitization Deep Dive
+   1. Implementation Details
+      ```typescript
+      // Comprehensive input sanitization
+      export const sanitizeInput = (input: unknown): string => {
+        if (typeof input !== 'string') {
+          return '';
+        }
+
+        return input
+          // Remove script tags
+          .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+          // Encode HTML entities
+          .replace(/[&<>"']/g, char => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#x27;'
+          }[char] || char))
+          // Remove dangerous attributes
+          .replace(/on\w+="[^"]*"/g, '');
+      };
+      ```
+      Why Important:
+      - Prevents XSS attacks
+      - Ensures data integrity
+      - Protects against injection attacks
+      - Maintains user input safety
+
+B. CSRF Protection Context
+   1. How It Works
+      ```typescript
+      // CSRF protection implementation
+      const csrfProtection = {
+        // Get token from meta tag (set by server)
+        getToken: () => document.querySelector('meta[name="csrf-token"]')
+          ?.getAttribute('content'),
+
+        // Add token to requests
+        addTokenToRequest: (config: RequestConfig) => {
+          const token = csrfProtection.getToken();
+          if (token) {
+            config.headers['X-CSRF-Token'] = token;
+          }
+          return config;
+        },
+
+        // Validate token in responses
+        validateToken: (response: Response) => {
+          const newToken = response.headers.get('x-csrf-token');
+          if (newToken) {
+            updateCsrfToken(newToken);
+          }
+        }
+      };
+      ```
+      Context:
+      - Works with server-side CSRF protection
+      - Prevents cross-site request forgery
+      - Ensures request authenticity
+      - Maintains session security
+
+14. SECURITY CONTEXT & IMPLEMENTATION
+----------------------------------
+A. API Security Layer
+   1. Request/Response Lifecycle
+      ```typescript
+      // Complete API security layer
+      class SecureApiService {
+        private async secureRequest(config: RequestConfig) {
+          // Pre-request security checks
+          this.validateRequest(config);
+          this.addSecurityHeaders(config);
+          this.sanitizeRequestData(config);
+
+          try {
+            const response = await this.makeRequest(config);
+            
+            // Post-response security checks
+            this.validateResponse(response);
+            this.sanitizeResponseData(response);
+            this.handleSecurityHeaders(response);
+
+            return response;
+          } catch (error) {
+            this.handleSecurityError(error);
+            throw error;
+          }
+        }
+
+        private validateRequest(config: RequestConfig) {
+          // Check content type
+          // Validate URL
+          // Check data format
+          // Verify authentication
+        }
+
+        private handleSecurityHeaders(response: Response) {
+          // Process security headers
+          // Update CSRF token
+          // Handle cookie updates
+          // Check content security policy
+        }
+      }
+      ```
+      Why Each Step Matters:
+      - Request validation prevents malformed requests
+      - Security headers protect against various attacks
+      - Response sanitization prevents data leaks
+      - Error handling maintains security
+
+B. Form Security Context
+   1. Complete Form Protection
+      ```typescript
+      // Secure form handling
+      const SecureForm: React.FC<FormProps> = ({ onSubmit }) => {
+        const handleSubmit = async (data: FormData) => {
+          // Rate limiting
+          if (!checkRateLimit('form_submission')) {
+            handleSecurityViolation('Rate limit exceeded');
+            return;
+          }
+
+          // Input validation
+          const validationResult = await validateFormData(data);
+          if (!validationResult.isValid) {
+            handleValidationError(validationResult.errors);
+            return;
+          }
+
+          // Data sanitization
+          const sanitizedData = sanitizeFormData(data);
+
+          // Secure submission
+          try {
+            await secureSubmit(sanitizedData);
+          } catch (error) {
+            handleSecureError(error);
+          }
+        };
+
+        return (
+          <form onSubmit={handleSubmit}>
+            {/* Form fields with individual security measures */}
+          </form>
+        );
+      };
+      ```
+      Security Layers Explained:
+      - Rate limiting prevents abuse
+      - Validation ensures data integrity
+      - Sanitization prevents injection
+      - Secure submission protects data in transit
+
+C. Runtime Security Monitoring
+   1. Comprehensive Monitoring
+      ```typescript
+      // Runtime security monitor
+      class SecurityMonitor {
+        private violations: SecurityViolation[] = [];
+
+        // Monitor DOM changes
+        private observeDOM() {
+          const observer = new MutationObserver(mutations => {
+            mutations.forEach(mutation => {
+              this.checkForXSS(mutation);
+              this.validateContentSecurity(mutation);
+              this.detectScriptInjection(mutation);
+            });
+          });
+
+          observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true
+          });
+        }
+
+        // Monitor resource loading
+        private monitorResources() {
+          performance.onresourcetimingbufferfull = () => {
+            this.checkResourceUsage();
+          };
+        }
+
+        // Handle violations
+        private handleViolation(violation: SecurityViolation) {
+          this.logViolation(violation);
+          this.takeRemediationAction(violation);
+          this.notifySecurityTeam(violation);
+        }
+      }
+      ```
+      Why Monitoring Matters:
+      - Detects runtime attacks
+      - Prevents unauthorized modifications
+      - Monitors resource usage
+      - Enables quick response to threats
+
+      15. COMPONENT-BASED ARCHITECTURE
+-----------------------------
+A. Structure Overview
+   1. Core Architecture
+      - Component-based design
+      - Each component is self-contained
+      - Promotes reusability
+      - Maintains separation of concerns
+
+   2. Component Hierarchy
+      ```
+      LandingPage (Parent Component)
+      ├── Navbar
+      │   ├── NavItems
+      │   └── ThemeToggle
+      ├── Hero Section
+      │   ├── LazyImage
+      │   └── CTAButton
+      ├── About Section
+      ├── Services Section
+      ├── FAQ Section
+      │   └── FAQItem (Collapsible)
+      ├── Contact Section
+      │   └── ContactForm
+      └── Footer
+      ```
+
+B. Component Communication
+   1. Props Flow
+      ```typescript
+      // Parent to Child Communication
+      <ContactForm 
+        onSubmit={handleSubmit}
+        initialData={formData}
+        validation={validationRules}
+      />
+      ```
+
+   2. Context Usage
+      ```typescript
+      // Global State Management
+      const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+      
+      // Usage in components
+      const { theme, toggleTheme } = useContext(ThemeContext);
+      ```
+
+C. Component Benefits
+   1. Modularity
+      - Easy to maintain
+      - Simple to test
+      - Reusable across projects
+      - Independent development
+
+   2. Performance
+      - Selective rendering
+      - Code splitting
+      - Lazy loading
+      - Optimized updates
+
+D. Component Development
+   1. Creating New Components
+      ```typescript
+      // Template for new component
+      const NewComponent: React.FC<Props> = ({ prop1, prop2 }) => {
+        // Component logic
+        return (
+          <div>
+            {/* Component JSX */}
+          </div>
+        );
+      };
+      ```
+
+   2. Integration
+      ```typescript
+      // Adding to LandingPage
+      import NewComponent from './components/NewComponent';
+
+      const LandingPage: React.FC = () => {
+        return (
+          <div>
+            {/* Existing components */}
+            <NewComponent prop1={value1} prop2={value2} />
+          </div>
+        );
+      };
+      ```
+
+E. Component Best Practices
+   1. Structure
+      - One component per file
+      - Clear naming conventions
+      - Proper type definitions
+      - Documented props
+
+   2. Optimization
+      - Use memo when needed
+      - Implement proper hooks
+      - Handle cleanup
+      - Manage side effects
+
+F. Component Testing
+   1. Unit Tests
+      ```typescript
+      describe('Component', () => {
+        it('renders correctly', () => {
+          render(<Component />);
+          expect(screen.getByRole('button')).toBeInTheDocument();
+        });
+      });
+      ```
+
+   2. Integration Tests
+      ```typescript
+      test('component interaction', async () => {
+        render(<ParentComponent />);
+        await userEvent.click(screen.getByRole('button'));
+        expect(screen.getByText('Result')).toBeVisible();
+      });
+      ```
+
+Note: This component-based architecture ensures:
+- Maintainable codebase
+- Scalable application
+- Reusable components
+- Clear development patterns
+- Easy testing
+- Efficient performance optimization
+
+16. ACCESSIBILITY IMPLEMENTATION
+-----------------------------
+A. WCAG Compliance
+   - Color contrast requirements
+   - Keyboard navigation
+   - Screen reader support
+   - ARIA labels and roles
+
+B. Responsive Design
+   - Mobile-first approach
+   - Breakpoint management
+   - Flexible layouts
+   - Touch interactions
+
+17. STATE MANAGEMENT
+------------------
+A. Redux Integration
+   - Store setup
+   - Action creators
+   - Reducers
+   - Middleware
+
+B. Context Usage
+   - Theme context
+   - Language context
+   - User preferences
+   - Authentication state
+
+18. API INTEGRATION
+-----------------
+A. Service Layer
+   - API endpoints
+   - Request/response handling
+   - Error management
+   - Data transformation
+
+19. BUILD & DEPLOYMENT
+--------------------
+A. Environment Configuration
+   - Development setup
+   - Production build
+   - Environment variables
+   - Configuration files
+
+B. CI/CD Pipeline
+   - Build process
+   - Testing pipeline
+   - Deployment steps
+   - Version control
+
+20. PERFORMANCE METRICS
+--------------------
+A. Core Web Vitals
+   - LCP (Largest Contentful Paint)
+   - FID (First Input Delay)
+   - CLS (Cumulative Layout Shift)
+
+B. Monitoring
+   - Performance tracking
+   - Error logging
+   - User analytics
+   - Load time metrics
+
+21. BROWSER COMPATIBILITY
+----------------------
+A. Support Matrix
+   - Supported browsers
+   - Minimum versions
+   - Polyfills needed
+   - Feature detection
+
+22. INTERNATIONALIZATION
+----------------------
+A. Language Support
+   - Available languages
+   - Translation management
+   - RTL support
+   - Date/time formatting
+
+23. TECHNICAL SPECIFICATIONS
+--------------------------
+A. Accessibility (WCAG 2.1)
+   ```typescript
+   // Example of accessible component
+   const AccessibleComponent = () => (
+     <div 
+       role="region"
+       aria-label="Content section"
+     >
+       <h2 id="section-title">Title</h2>
+       <div aria-labelledby="section-title">
+         Content
+       </div>
+     </div>
+   );
+   ```
+
+B. State Management
+   ```typescript
+   // Redux store configuration
+   const store = configureStore({
+     reducer: {
+       ui: uiReducer,
+       user: userReducer,
+       preferences: preferencesReducer
+     }
+   });
+   ```
+
+C. API Integration
+   ```typescript
+   // Service layer example
+   const apiService = {
+     get: async <T>(url: string) => {
+       const response = await fetch(url);
+       return response.json() as Promise<T>;
+     }
+   };
+   ```
+
+D. Build Process
+   ```bash
+   # Development
+   npm run dev
+
+   # Production build
+   npm run build
+   
+   # Preview production
+   npm run preview
+   ```
+
+E. Performance Monitoring
+   ```typescript
+   // Core Web Vitals tracking
+   export const trackWebVitals = {
+     LCP: vitals.getLCP,
+     FID: vitals.getFID,
+     CLS: vitals.getCLS
+   };
+   ```
+
+F. Browser Support
+   - Modern browsers (last 2 versions)
+   - IE11 not supported
+   - Mobile browsers: iOS 12+, Android 5+
+
+G. Internationalization
+   ```typescript
+   // i18n configuration
+   i18n.init({
+     lng: 'en',
+     fallbackLng: 'en',
+     supportedLngs: ['en', 'es']
+   });
+   ```
+
+Note: All implementations follow best practices for:
+- Performance optimization
+- Security measures
+- Accessibility standards
+- Code maintainability

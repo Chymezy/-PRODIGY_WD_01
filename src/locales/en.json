@@ -113,5 +113,10 @@
       "benefits": "NeuraPulse can help your business make data-driven decisions, predict future trends, optimize operations, and gain a competitive edge in your industry.",
       "security": "Yes, we take data security very seriously. We use state-of-the-art encryption and security measures to protect your data, and we comply with all relevant data protection regulations."
     }
+  },
+  "accessibility": {
+    "languageSelector": "Select language",
+    "lightMode": "Switch to light mode",
+    "darkMode": "Switch to dark mode"
   }
 }
