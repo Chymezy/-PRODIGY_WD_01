@@ -1,0 +1,145 @@
+EXPRESS TYPESCRIPT API SERVER SETUP DOCUMENTATION
+==============================================
+
+This document outlines the complete process of setting up an Express.js API server with TypeScript, PostgreSQL, and Prisma.
+
+1. PROJECT INITIALIZATION
+------------------------
+1.1. Create Project Structure
+    - mkdir express-ts-api
+    - cd express-ts-api
+    - npm init -y
+    - Create src directory and subdirectories:
+        * src/routes/
+        * src/middleware/
+        * src/config/
+        * src/types/
+
+1.2. Install Dependencies
+    - Core dependencies:
+        npm install express express-rate-limit helmet cors dotenv zod @prisma/client
+    
+    - Development dependencies:
+        npm install -D typescript @types/node @types/express @types/cors prisma
+        npm install -D ts-node-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin
+
+1.3. TypeScript Configuration
+    - Create tsconfig.json with:
+        * ES2020 target
+        * CommonJS modules
+        * Strict type checking
+        * Path aliases
+        * Source map support
+
+2. DATABASE SETUP
+----------------
+2.1. PostgreSQL Installation (Debian/Ubuntu)
+    - sudo apt update
+    - sudo apt install postgresql postgresql-contrib
+    - sudo systemctl start postgresql
+
+2.2. Database Configuration
+    - Access PostgreSQL: sudo -u postgres psql
+    - Create database: CREATE DATABASE "wasteDump";
+    - Set password: \password postgres
+    - Verify database: \l
+    - Exit: \q
+
+3. PRISMA SETUP
+--------------
+3.1. Initialize Prisma
+    - npx prisma init
+    - Configure schema.prisma:
+        * PostgreSQL provider
+        * Database URL from environment
+        * API key model definition
+
+3.2. Environment Setup
+    - Create .env with:
+        * PORT=4000
+        * NODE_ENV=development
+        * DATABASE_URL
+        * API_KEY
+        * Rate limiting settings
+
+4. API STRUCTURE
+---------------
+4.1. Core Files
+    - src/app.ts (Express application setup)
+    - src/server.ts (Server entry point)
+    - src/routes/index.ts (Route aggregation)
+    - src/routes/health.routes.ts (Health check endpoint)
+    - src/routes/keys.routes.ts (API key management)
+
+4.2. Middleware Setup
+    - src/middleware/auth.middleware.ts (API key validation)
+    - src/middleware/error.middleware.ts (Error handling)
+
+5. SECURITY FEATURES
+-------------------
+5.1. API Protection
+    - API key authentication
+    - Rate limiting
+    - CORS configuration
+    - Security headers (Helmet)
+
+5.2. Error Handling
+    - Centralized error middleware
+    - Validation error handling
+    - Type-safe error responses
+
+6. RUNNING THE SERVER
+--------------------
+6.1. Development
+    - npm run dev (ts-node-dev for hot reloading)
+    - Access at http://localhost:4000
+
+6.2. Production
+    - npm run build (TypeScript compilation)
+    - npm start (Run compiled code)
+
+7. API ENDPOINTS
+---------------
+7.1. Health Check
+    GET /api/health
+    - Returns server status and timestamp
+
+7.2. API Keys Management
+    GET /api/v1/keys
+    - List all API keys
+    
+    POST /api/v1/keys
+    - Create new API key
+    
+    DELETE /api/v1/keys/{id}
+    - Deactivate existing key
+
+8. TESTING
+----------
+8.1. Manual Testing (Postman)
+    - Import provided collection
+    - Set environment variables
+    - Test all endpoints
+
+8.2. Curl Commands
+    - Health check:
+        curl http://localhost:4000/api/health -H "x-api-key: your-key"
+    
+    - Create key:
+        curl -X POST http://localhost:4000/api/v1/keys \
+        -H "Content-Type: application/json" \
+        -H "x-api-key: your-key" \
+        -d '{"name":"Test Key"}'
+
+9. MAINTENANCE
+-------------
+9.1. Database Management
+    - npx prisma studio (Database GUI)
+    - npx prisma db push (Schema updates)
+
+9.2. Monitoring
+    - Health endpoint checks
+    - Rate limit monitoring
+    - API key usage tracking
+
+END OF DOCUMENTATION 
